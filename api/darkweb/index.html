@@ -1,0 +1,4266 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Search & Intelligence Platform - OSINT, threat intel, and security research API">
+      
+      
+      
+        <link rel="canonical" href="http://localhost:8003/api/darkweb/">
+      
+      
+        <link rel="prev" href="../security/">
+      
+      
+        <link rel="next" href="../breach-spider/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Dark Web - Crosshair API</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--osint{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M17.9%2017.39c-.26-.8-1.01-1.39-1.9-1.39h-1v-3a1%201%200%200%200-1-1H8v-2h2a1%201%200%200%200%201-1V7h2a2%202%200%200%200%202-2v-.41a7.984%207.984%200%200%201%202.9%2012.8M11%2019.93c-3.95-.49-7-3.85-7-7.93%200-.62.08-1.22.21-1.79L9%2015v1a2%202%200%200%200%202%202m1-16A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202%22/%3E%3C/svg%3E');}.md-tag.md-tag--security{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%201%203%205v6c0%205.55%203.84%2010.74%209%2012%205.16-1.26%209-6.45%209-12V5zm0%206c1.4%200%202.8%201.1%202.8%202.5V11c.6%200%201.2.6%201.2%201.3v3.5c0%20.6-.6%201.2-1.3%201.2H9.2c-.6%200-1.2-.6-1.2-1.3v-3.5c0-.6.6-1.2%201.2-1.2V9.5C9.2%208.1%2010.6%207%2012%207m0%201.2c-.8%200-1.5.5-1.5%201.3V11h3V9.5c0-.8-.7-1.3-1.5-1.3%22/%3E%3C/svg%3E');}.md-tag.md-tag--search{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%203A6.5%206.5%200%200%201%2016%209.5c0%201.61-.59%203.09-1.56%204.23l.27.27h.79l5%205-1.5%201.5-5-5v-.79l-.27-.27A6.52%206.52%200%200%201%209.5%2016%206.5%206.5%200%200%201%203%209.5%206.5%206.5%200%200%201%209.5%203m0%202C7%205%205%207%205%209.5S7%2014%209.5%2014%2014%2012%2014%209.5%2012%205%209.5%205%22/%3E%3C/svg%3E');}.md-tag.md-tag--network{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M10%202c-1.11%200-2%20.89-2%202v3c0%201.11.89%202%202%202h1v2H2v2h4v2H5c-1.11%200-2%20.89-2%202v3c0%201.11.89%202%202%202h4c1.11%200%202-.89%202-2v-3c0-1.11-.89-2-2-2H8v-2h8v2h-1c-1.11%200-2%20.89-2%202v3c0%201.11.89%202%202%202h4c1.11%200%202-.89%202-2v-3c0-1.11-.89-2-2-2h-1v-2h4v-2h-9V9h1c1.11%200%202-.89%202-2V4c0-1.11-.89-2-2-2zm0%202h4v3h-4zM5%2017h4v3H5zm10%200h4v3h-4z%22/%3E%3C/svg%3E');}.md-tag.md-tag--darkweb{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M16.36%2014c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26%201.31.26%202s-.1%201.36-.26%202m-5.15%205.56c.6-1.11%201.06-2.31%201.38-3.56h2.95a8.03%208.03%200%200%201-4.33%203.56M14.34%2014H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16%201.32.16%202s-.07%201.34-.16%202M12%2019.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41%201.43-1.08%202.76-1.91%203.96M8%208H5.08A7.92%207.92%200%200%201%209.4%204.44C8.8%205.55%208.35%206.75%208%208m-2.92%208H8c.35%201.25.8%202.45%201.4%203.56A8%208%200%200%201%205.08%2016m-.82-2C4.1%2013.36%204%2012.69%204%2012s.1-1.36.26-2h3.38c-.08.66-.14%201.32-.14%202s.06%201.34.14%202M12%204.03c.83%201.2%201.5%202.54%201.91%203.97h-3.82c.41-1.43%201.08-2.77%201.91-3.97M18.92%208h-2.95a15.7%2015.7%200%200%200-1.38-3.56c1.84.63%203.37%201.9%204.33%203.56M12%202C6.47%202%202%206.5%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202%22/%3E%3C/svg%3E');}.md-tag.md-tag--automation{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%202a2%202%200%200%201%202%202c0%20.74-.4%201.39-1%201.73V7h1a7%207%200%200%201%207%207h1a1%201%200%200%201%201%201v3a1%201%200%200%201-1%201h-1v1a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2v-1H2a1%201%200%200%201-1-1v-3a1%201%200%200%201%201-1h1a7%207%200%200%201%207-7h1V5.73c-.6-.34-1-.99-1-1.73a2%202%200%200%201%202-2M7.5%2013A2.5%202.5%200%200%200%205%2015.5%202.5%202.5%200%200%200%207.5%2018a2.5%202.5%200%200%200%202.5-2.5A2.5%202.5%200%200%200%207.5%2013m9%200a2.5%202.5%200%200%200-2.5%202.5%202.5%202.5%200%200%200%202.5%202.5%202.5%202.5%200%200%200%202.5-2.5%202.5%202.5%200%200%200-2.5-2.5%22/%3E%3C/svg%3E');}.md-tag.md-tag--data{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203C7.58%203%204%204.79%204%207s3.58%204%208%204%208-1.79%208-4-3.58-4-8-4M4%209v3c0%202.21%203.58%204%208%204s8-1.79%208-4V9c0%202.21-3.58%204-8%204s-8-1.79-8-4m0%205v3c0%202.21%203.58%204%208%204s8-1.79%208-4v-3c0%202.21-3.58%204-8%204s-8-1.79-8-4%22/%3E%3C/svg%3E');}.md-tag.md-tag--ai{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M21.33%2012.91c.09%201.55-.62%203.04-1.89%203.95l.77%201.49c.23.45.26.98.06%201.45-.19.47-.58.84-1.06%201l-.79.25a1.687%201.687%200%200%201-1.86-.55L14.44%2018c-.89-.15-1.73-.53-2.44-1.1-.5.15-1%20.23-1.5.23-.88%200-1.76-.27-2.5-.79-.53.16-1.07.23-1.62.22-.79.01-1.57-.15-2.3-.45a4.1%204.1%200%200%201-2.43-3.61c-.08-.72.04-1.45.35-2.11-.29-.75-.32-1.57-.07-2.33C2.3%207.11%203%206.32%203.87%205.82c.58-1.69%202.21-2.82%204-2.7%201.6-1.5%204.05-1.66%205.83-.37.42-.11.86-.17%201.3-.17%201.36-.03%202.65.57%203.5%201.64%202.04.53%203.5%202.35%203.58%204.47.05%201.11-.25%202.2-.86%203.13.07.36.11.72.11%201.09m-5-1.41c.57.07%201.02.5%201.02%201.07a1%201%200%200%201-1%201h-.63c-.32.9-.88%201.69-1.62%202.29.25.09.51.14.77.21%205.13-.07%204.53-3.2%204.53-3.25a2.59%202.59%200%200%200-2.69-2.49%201%201%200%200%201-1-1%201%201%200%200%201%201-1c1.23.03%202.41.49%203.33%201.3.05-.29.08-.59.08-.89-.06-1.24-.62-2.32-2.87-2.53-1.25-2.96-4.4-1.32-4.4-.4-.03.23.21.72.25.75a1%201%200%200%201%201%201c0%20.55-.45%201-1%201-.53-.02-1.03-.22-1.43-.56-.48.31-1.03.5-1.6.56-.57.05-1.04-.35-1.07-.9a.97.97%200%200%201%20.88-1.1c.16-.02.94-.14.94-.77%200-.66.25-1.29.68-1.79-.92-.25-1.91.08-2.91%201.29C6.75%205%206%205.25%205.45%207.2%204.5%207.67%204%208%203.78%209c1.08-.22%202.19-.13%203.22.25.5.19.78.75.59%201.29-.19.52-.77.78-1.29.59-.73-.32-1.55-.34-2.3-.06-.32.27-.32.83-.32%201.27%200%20.74.37%201.43%201%201.83.53.27%201.12.41%201.71.4q-.225-.39-.39-.81a1.038%201.038%200%200%201%201.96-.68c.4%201.14%201.42%201.92%202.62%202.05%201.37-.07%202.59-.88%203.19-2.13.23-1.38%201.34-1.5%202.56-1.5m2%207.47-.62-1.3-.71.16%201%201.25zm-4.65-8.61a1%201%200%200%200-.91-1.03c-.71-.04-1.4.2-1.93.67-.57.58-.87%201.38-.84%202.19a1%201%200%200%200%201%201c.57%200%201-.45%201-1%200-.27.07-.54.23-.76.12-.1.27-.15.43-.15.55.03%201.02-.38%201.02-.92%22/%3E%3C/svg%3E');}.md-tag.md-tag--crypto{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M17.06%2011.57A3.9%203.9%200%200%200%2018%209c0-1.86-1.27-3.43-3-3.87V3h-2v2h-2V3H9v2H6v2h2v10H6v2h3v2h2v-2h2v2h2v-2c2.21%200%204-1.79%204-4%200-1.45-.78-2.73-1.94-3.43M10%207h4c1.1%200%202%20.9%202%202s-.9%202-2%202h-4zm5%2010h-5v-4h5c1.1%200%202%20.9%202%202s-.9%202-2%202%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.56f7ac64.css">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dark-web-monitoring" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            
+            
+<a href="/api/telegram/">
+  <strong>New:</strong> Telegram Threat Intelligence endpoints now available &mdash; track ransomware groups, data leak channels, and hacktivist activity.
+</a>
+
+          </div>
+          
+            <script>var el=document.querySelector("[data-md-component=announce]");if(el){var content=el.querySelector(".md-typeset");__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0)}</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Crosshair API" class="md-header__button md-logo" aria-label="Crosshair API" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.05 13H1v-2h2.05C3.5 6.83 6.83 3.5 11 3.05V1h2v2.05c4.17.45 7.5 3.78 7.95 7.95H23v2h-2.05c-.45 4.17-3.78 7.5-7.95 7.95V23h-2v-2.05C6.83 20.5 3.5 17.17 3.05 13M12 5a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crosshair API
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Dark Web
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/openapi/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Interactive API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../operations/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Crosshair API" class="md-nav__button md-logo" aria-label="Crosshair API" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.05 13H1v-2h2.05C3.5 6.83 6.83 3.5 11 3.05V1h2v2.05c4.17.45 7.5 3.78 7.95 7.95H23v2h-2.05c-.45 4.17-3.78 7.5-7.95 7.95V23h-2v-2.05C6.83 20.5 3.5 17.17 3.05 13M12 5a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7"/></svg>
+
+    </a>
+    Crosshair API
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting-started/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../response-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Response Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Content Extraction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intelligence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intelligence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../driftnet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Driftnet OSINT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dark Web
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dark Web
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ransomware-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ransomware Tracking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ransomware Tracking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebransomwaregroups-list-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/ransomware/groups -- List Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebransomwarevictims-recent-victims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/ransomware/victims -- Recent Victims
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebransomwarecheckdomain-domain-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/ransomware/check/{domain} -- Domain Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebransomwaresearch-search-victims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/ransomware/search -- Search Victims
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebransomwarestatistics-trends-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/ransomware/statistics -- Trends &amp; Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ransomware-trackers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ransomware Trackers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forum-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forum Monitoring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Forum Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebforumlist-list-forums" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/forum/list -- List Forums
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebforumadd-add-forum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/forum/add -- Add Forum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebforumselectors-default-selectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/forum/selectors -- Default Selectors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebforumforum_idcapture-capture-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/forum/{forum_id}/capture -- Capture Content
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-v1darkwebforumforum_id-remove-forum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DELETE /v1/darkweb/forum/{forum_id} -- Remove Forum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forum-monitors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forum Monitors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paste-site-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paste Site Monitoring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paste Site Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebpastesearch-search-pastes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/paste/search -- Search Pastes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebpastepatterns-available-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/paste/patterns -- Available Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paste-monitors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paste Monitors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ransomware-sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ransomware Sites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ransomware Sites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsites-list-ransomware-sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites -- List Ransomware Sites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsitessite_id-get-site-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/{site_id} -- Get Site Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsitesgroups-list-ransomware-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/groups -- List Ransomware Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsitessources-list-data-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/sources -- List Data Sources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsitesstats-site-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/stats -- Site Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitescheck-check-site-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/check -- Check Site Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesrefresh-refresh-site-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/refresh -- Refresh Site Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesscrape-scrape-onion-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/scrape -- Scrape .onion Site
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesbulk-scrape-bulk-scrape-sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/bulk-scrape -- Bulk Scrape Sites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesscreenshot-capture-site-screenshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/screenshot -- Capture Site Screenshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesscreenshotsbulk-bulk-screenshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/screenshots/bulk -- Bulk Screenshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesextract-victims-extract-victims-from-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/extract-victims -- Extract Victims from HTML
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsitesexportonion-export-onion-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/export/onion -- Export .onion URLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsitesstream-stream-status-changes-sse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/stream -- Stream Status Changes (SSE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change Detection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Change Detection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesdetect-change-detect-site-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/detect-change -- Detect Site Change
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesdetect-changesbulk-bulk-change-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/detect-changes/bulk -- Bulk Change Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsiteschangesrecent-recent-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/changes/recent -- Recent Changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsiteschangeshistoryurl-site-change-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/changes/history/{url} -- Site Change History
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#victims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Victims
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Victims">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebvictims-list-ransomware-victims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/victims -- List Ransomware Victims
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebvictimssearch-search-victims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/victims/search -- Search Victims
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebvictimsstats-victim-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/victims/stats -- Victim Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-sync-feeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Sync &amp; Feeds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Sync &amp; Feeds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebfeeds-list-ransomware-feeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/feeds -- List Ransomware Feeds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsync-sync-all-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sync -- Sync All Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebmerge-merge-new-from-upstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/merge -- Merge New from Upstream
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebdiff-diff-with-upstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/diff -- Diff with Upstream
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkweblocalstatus-local-sync-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/local/status -- Local Sync Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkweblocalsites-local-sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/local/sites -- Local Sites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkweblocalvictims-local-victims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/local/victims -- Local Victims
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkweblocalonion-local-onion-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/local/onion -- Local .onion URLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../breach-spider/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Breach Spider
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="Recently added">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spider-generator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spider Generator
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="Recently added">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crawler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Crawler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../telegram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telegram Intel
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="Recently added">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crypto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crypto Wallets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streaming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Streaming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interactive API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Interactive API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/openapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAPI Explorer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../operations/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ransomware-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ransomware Tracking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ransomware Tracking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebransomwaregroups-list-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/ransomware/groups -- List Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebransomwarevictims-recent-victims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/ransomware/victims -- Recent Victims
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebransomwarecheckdomain-domain-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/ransomware/check/{domain} -- Domain Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebransomwaresearch-search-victims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/ransomware/search -- Search Victims
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebransomwarestatistics-trends-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/ransomware/statistics -- Trends &amp; Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ransomware-trackers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ransomware Trackers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forum-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forum Monitoring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Forum Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebforumlist-list-forums" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/forum/list -- List Forums
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebforumadd-add-forum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/forum/add -- Add Forum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebforumselectors-default-selectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/forum/selectors -- Default Selectors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebforumforum_idcapture-capture-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/forum/{forum_id}/capture -- Capture Content
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-v1darkwebforumforum_id-remove-forum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DELETE /v1/darkweb/forum/{forum_id} -- Remove Forum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forum-monitors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forum Monitors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paste-site-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paste Site Monitoring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paste Site Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebpastesearch-search-pastes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/paste/search -- Search Pastes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebpastepatterns-available-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/paste/patterns -- Available Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paste-monitors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paste Monitors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ransomware-sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ransomware Sites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ransomware Sites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsites-list-ransomware-sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites -- List Ransomware Sites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsitessite_id-get-site-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/{site_id} -- Get Site Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsitesgroups-list-ransomware-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/groups -- List Ransomware Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsitessources-list-data-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/sources -- List Data Sources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsitesstats-site-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/stats -- Site Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitescheck-check-site-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/check -- Check Site Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesrefresh-refresh-site-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/refresh -- Refresh Site Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesscrape-scrape-onion-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/scrape -- Scrape .onion Site
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesbulk-scrape-bulk-scrape-sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/bulk-scrape -- Bulk Scrape Sites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesscreenshot-capture-site-screenshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/screenshot -- Capture Site Screenshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesscreenshotsbulk-bulk-screenshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/screenshots/bulk -- Bulk Screenshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesextract-victims-extract-victims-from-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/extract-victims -- Extract Victims from HTML
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsitesexportonion-export-onion-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/export/onion -- Export .onion URLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsitesstream-stream-status-changes-sse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/stream -- Stream Status Changes (SSE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change Detection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Change Detection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesdetect-change-detect-site-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/detect-change -- Detect Site Change
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsitesdetect-changesbulk-bulk-change-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sites/detect-changes/bulk -- Bulk Change Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsiteschangesrecent-recent-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/changes/recent -- Recent Changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebsiteschangeshistoryurl-site-change-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/sites/changes/history/{url} -- Site Change History
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#victims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Victims
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Victims">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebvictims-list-ransomware-victims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/victims -- List Ransomware Victims
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebvictimssearch-search-victims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/victims/search -- Search Victims
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebvictimsstats-victim-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/victims/stats -- Victim Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-sync-feeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Sync &amp; Feeds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Sync &amp; Feeds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebfeeds-list-ransomware-feeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/feeds -- List Ransomware Feeds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebsync-sync-all-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/sync -- Sync All Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-v1darkwebmerge-merge-new-from-upstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /v1/darkweb/merge -- Merge New from Upstream
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkwebdiff-diff-with-upstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/diff -- Diff with Upstream
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkweblocalstatus-local-sync-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/local/status -- Local Sync Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkweblocalsites-local-sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/local/sites -- Local Sites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkweblocalvictims-local-victims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/local/victims -- Local Victims
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1darkweblocalonion-local-onion-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/darkweb/local/onion -- Local .onion URLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+        
+        
+          
+        
+      
+      
+        <a href="../../tags/#tag:dark-web" class="md-tag md-tag-icon md-tag--darkweb">Dark Web</a>
+      
+    
+      
+      
+      
+        
+        
+          
+        
+      
+      
+        <a href="../../tags/#tag:osint" class="md-tag md-tag-icon md-tag--osint">OSINT</a>
+      
+    
+  </nav>
+
+
+
+<h1 id="dark-web-monitoring">Dark Web Monitoring<a class="headerlink" href="#dark-web-monitoring" title="Permanent link">&para;</a></h1>
+<p>Monitor dark web sources for threats including ransomware groups, forums, and paste sites.</p>
+<hr />
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The dark web monitoring endpoints provide continuous threat intelligence from three major source categories: ransomware leak sites, underground forums, and paste sites. All <abbr title="The Onion Router - anonymity network routing traffic through encrypted relays">Tor</abbr>-based sources are accessed through the built-in <abbr title="The Onion Router - anonymity network routing traffic through encrypted relays">Tor</abbr> proxy.</p>
+<h2 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ransomware tracking</td>
+<td>45+ active groups with victim feeds</td>
+</tr>
+<tr>
+<td>Forum monitoring</td>
+<td>Dark web forum crawling with <abbr title="The Onion Router - anonymity network routing traffic through encrypted relays">Tor</abbr> support</td>
+</tr>
+<tr>
+<td>Paste site monitoring</td>
+<td>Credential and data leak detection</td>
+</tr>
+<tr>
+<td>Keyword alerting</td>
+<td>Webhook notifications on keyword matches</td>
+</tr>
+<tr>
+<td>Pattern matching</td>
+<td>Regex-based detection for emails, <abbr title="Application Programming Interface">API</abbr> keys, credit cards, SSNs, private keys</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ransomware-tracking">Ransomware Tracking<a class="headerlink" href="#ransomware-tracking" title="Permanent link">&para;</a></h2>
+<h3 id="get-v1darkwebransomwaregroups-list-groups">GET <code>/v1/darkweb/ransomware/groups</code> -- List Groups<a class="headerlink" href="#get-v1darkwebransomwaregroups-list-groups" title="Permanent link">&para;</a></h3>
+<p>List known ransomware groups with activity statistics.</p>
+<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>curl<span class="w"> </span>http://localhost:8001/v1/darkweb/ransomware/groups
+</span></code></pre></div>
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">&quot;groups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">      </span><span class="p">{</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lockbit&quot;</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="nt">&quot;aliases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;LockBit 3.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;LockBit Black&quot;</span><span class="p">],</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="nt">&quot;first_seen&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2019-09-01&quot;</span><span class="p">,</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="nt">&quot;victim_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1500</span><span class="p">,</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="nt">&quot;leak_site&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://lockbit...onion&quot;</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="p">],</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebransomwarevictims-recent-victims">GET <code>/v1/darkweb/ransomware/victims</code> -- Recent Victims<a class="headerlink" href="#get-v1darkwebransomwarevictims-recent-victims" title="Permanent link">&para;</a></h3>
+<p>Get recent ransomware victims across all tracked groups.</p>
+<h4 id="query-parameters">Query Parameters<a class="headerlink" href="#query-parameters" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>limit</code></td>
+<td>int</td>
+<td>50</td>
+<td>Maximum results</td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td>int</td>
+<td>0</td>
+<td>Pagination offset</td>
+</tr>
+<tr>
+<td><code>group</code></td>
+<td>string</td>
+<td>--</td>
+<td>Filter by group name</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>string</td>
+<td>--</td>
+<td>Filter by country code</td>
+</tr>
+</tbody>
+</table>
+<h4 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">curl</label><label for="__tabbed_1_2">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/ransomware/victims?group=lockbit&amp;limit=10&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://localhost:8001/v1/darkweb/ransomware/victims&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;lockbit&quot;</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">})</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">for</span> <span class="n">victim</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;victims&quot;</span><span class="p">]:</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">victim</span><span class="p">[</span><span class="s1">&#39;posted_date&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">victim</span><span class="p">[</span><span class="s1">&#39;organization&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">victim</span><span class="p">[</span><span class="s1">&#39;sector&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">&quot;victims&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">      </span><span class="p">{</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="nt">&quot;organization&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example Corp&quot;</span><span class="p">,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">        </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">        </span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lockbit&quot;</span><span class="p">,</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span><span class="nt">&quot;country&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;US&quot;</span><span class="p">,</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="nt">&quot;sector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Technology&quot;</span><span class="p">,</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">        </span><span class="nt">&quot;posted_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-01-15&quot;</span><span class="p">,</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">        </span><span class="nt">&quot;deadline&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-01-30&quot;</span><span class="p">,</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">        </span><span class="nt">&quot;data_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;500GB&quot;</span><span class="p">,</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;published&quot;</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebransomwarecheckdomain-domain-check">GET <code>/v1/darkweb/ransomware/check/{domain}</code> -- Domain Check<a class="headerlink" href="#get-v1darkwebransomwarecheckdomain-domain-check" title="Permanent link">&para;</a></h3>
+<p>Check if a specific domain has been hit by ransomware.</p>
+<h4 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>curl<span class="w"> </span>http://localhost:8001/v1/darkweb/ransomware/check/example.com
+</span></code></pre></div>
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nt">&quot;found&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nt">&quot;incidents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">      </span><span class="p">{</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lockbit&quot;</span><span class="p">,</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="nt">&quot;posted_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-01-15&quot;</span><span class="p">,</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;published&quot;</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="post-v1darkwebransomwaresearch-search-victims">POST <code>/v1/darkweb/ransomware/search</code> -- Search Victims<a class="headerlink" href="#post-v1darkwebransomwaresearch-search-victims" title="Permanent link">&para;</a></h3>
+<p>Search the ransomware victim database with filters.</p>
+<h4 id="request-body">Request Body<a class="headerlink" href="#request-body" title="Permanent link">&para;</a></h4>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;healthcare&quot;</span><span class="p">,</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">&quot;groups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;lockbit&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;alphv&quot;</span><span class="p">],</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">&quot;date_from&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-01-01&quot;</span><span class="p">,</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="nt">&quot;date_to&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-12-31&quot;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>query</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Search term (matches org name, sector, domain)</td>
+</tr>
+<tr>
+<td><code>groups</code></td>
+<td>array</td>
+<td>no</td>
+<td>Filter to specific ransomware groups</td>
+</tr>
+<tr>
+<td><code>date_from</code></td>
+<td>string</td>
+<td>no</td>
+<td>Start date (<code>YYYY-MM-DD</code>)</td>
+</tr>
+<tr>
+<td><code>date_to</code></td>
+<td>string</td>
+<td>no</td>
+<td>End date (<code>YYYY-MM-DD</code>)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/v1/darkweb/ransomware/search<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;query&quot;: &quot;healthcare&quot;, &quot;groups&quot;: [&quot;lockbit&quot;, &quot;alphv&quot;], &quot;date_from&quot;: &quot;2024-01-01&quot;}&#39;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebransomwarestatistics-trends-statistics">GET <code>/v1/darkweb/ransomware/statistics</code> -- Trends &amp; Statistics<a class="headerlink" href="#get-v1darkwebransomwarestatistics-trends-statistics" title="Permanent link">&para;</a></h3>
+<p>Get ransomware trends and aggregate statistics.</p>
+<h4 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>curl<span class="w"> </span>http://localhost:8001/v1/darkweb/ransomware/statistics
+</span></code></pre></div>
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="nt">&quot;total_victims_30d&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">450</span><span class="p">,</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nt">&quot;top_groups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lockbit&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span><span class="p">},</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alphv&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">85</span><span class="p">}</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="p">],</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="nt">&quot;top_sectors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">      </span><span class="p">{</span><span class="nt">&quot;sector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Healthcare&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">65</span><span class="p">},</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">      </span><span class="p">{</span><span class="nt">&quot;sector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Technology&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">58</span><span class="p">}</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">    </span><span class="p">],</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">    </span><span class="nt">&quot;top_countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">      </span><span class="p">{</span><span class="nt">&quot;country&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;US&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="p">},</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">      </span><span class="p">{</span><span class="nt">&quot;country&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UK&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">}</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="ransomware-trackers">Ransomware Trackers<a class="headerlink" href="#ransomware-trackers" title="Permanent link">&para;</a></h3>
+<p>Create persistent trackers that monitor for specific organizations and notify via webhook.</p>
+<h4 id="post-v1darkwebransomwaretrackercreate-create-tracker">POST <code>/v1/darkweb/ransomware/tracker/create</code> -- Create Tracker<a class="headerlink" href="#post-v1darkwebransomwaretrackercreate-create-tracker" title="Permanent link">&para;</a></h4>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Our Company Monitor&quot;</span><span class="p">,</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="nt">&quot;domains&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ourcompany.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;oursubsidiary.com&quot;</span><span class="p">],</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nt">&quot;keywords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Our Company&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;OurCompany Inc&quot;</span><span class="p">],</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="nt">&quot;notify_webhook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://hooks.slack.com/...&quot;</span><span class="p">,</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span><span class="nt">&quot;check_interval_hours&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Human-readable tracker name</td>
+</tr>
+<tr>
+<td><code>domains</code></td>
+<td>array</td>
+<td>yes</td>
+<td>Domains to watch</td>
+</tr>
+<tr>
+<td><code>keywords</code></td>
+<td>array</td>
+<td>no</td>
+<td>Additional keywords to match</td>
+</tr>
+<tr>
+<td><code>notify_webhook</code></td>
+<td>string</td>
+<td>no</td>
+<td>Webhook URL for alerts</td>
+</tr>
+<tr>
+<td><code>check_interval_hours</code></td>
+<td>int</td>
+<td>no</td>
+<td>Check frequency (default: 6)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="get-v1darkwebransomwaretrackerlist-list-trackers">GET <code>/v1/darkweb/ransomware/tracker/list</code> -- List Trackers<a class="headerlink" href="#get-v1darkwebransomwaretrackerlist-list-trackers" title="Permanent link">&para;</a></h4>
+<p>List all configured ransomware trackers.</p>
+<h4 id="post-v1darkwebransomwaretrackertracker_idrun-run-tracker">POST <code>/v1/darkweb/ransomware/tracker/{tracker_id}/run</code> -- Run Tracker<a class="headerlink" href="#post-v1darkwebransomwaretrackertracker_idrun-run-tracker" title="Permanent link">&para;</a></h4>
+<p>Manually trigger a tracker check.</p>
+<h4 id="delete-v1darkwebransomwaretrackertracker_id-delete-tracker">DELETE <code>/v1/darkweb/ransomware/tracker/{tracker_id}</code> -- Delete Tracker<a class="headerlink" href="#delete-v1darkwebransomwaretrackertracker_id-delete-tracker" title="Permanent link">&para;</a></h4>
+<p>Remove a ransomware tracker.</p>
+<hr />
+<h2 id="forum-monitoring">Forum Monitoring<a class="headerlink" href="#forum-monitoring" title="Permanent link">&para;</a></h2>
+<p>Monitor dark web forums for threat intelligence.</p>
+<h3 id="get-v1darkwebforumlist-list-forums">GET <code>/v1/darkweb/forum/list</code> -- List Forums<a class="headerlink" href="#get-v1darkwebforumlist-list-forums" title="Permanent link">&para;</a></h3>
+<p>List configured dark web forums.</p>
+<h4 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>curl<span class="w"> </span>http://localhost:8001/v1/darkweb/forum/list
+</span></code></pre></div>
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nt">&quot;forums&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">      </span><span class="p">{</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;forum_1&quot;</span><span class="p">,</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example Forum&quot;</span><span class="p">,</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example...onion&quot;</span><span class="p">,</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">        </span><span class="nt">&quot;last_crawled&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-01-15T10:30:00Z&quot;</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="post-v1darkwebforumadd-add-forum">POST <code>/v1/darkweb/forum/add</code> -- Add Forum<a class="headerlink" href="#post-v1darkwebforumadd-add-forum" title="Permanent link">&para;</a></h3>
+<p>Add a new forum to monitoring.</p>
+<h4 id="request-body_1">Request Body<a class="headerlink" href="#request-body_1" title="Permanent link">&para;</a></h4>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Forum&quot;</span><span class="p">,</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://newforum...onion&quot;</span><span class="p">,</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">  </span><span class="nt">&quot;selectors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="nt">&quot;thread_list&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.thread-item&quot;</span><span class="p">,</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="nt">&quot;thread_title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.title&quot;</span><span class="p">,</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="nt">&quot;thread_author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.author&quot;</span><span class="p">,</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="nt">&quot;thread_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.date&quot;</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Forum display name</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Onion URL</td>
+</tr>
+<tr>
+<td><code>selectors</code></td>
+<td>object</td>
+<td>yes</td>
+<td>CSS selectors for thread extraction</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="get-v1darkwebforumselectors-default-selectors">GET <code>/v1/darkweb/forum/selectors</code> -- Default Selectors<a class="headerlink" href="#get-v1darkwebforumselectors-default-selectors" title="Permanent link">&para;</a></h3>
+<p>Get default CSS selectors for common forum software (phpBB, XenForo, etc.).</p>
+<h3 id="post-v1darkwebforumforum_idcapture-capture-content">POST <code>/v1/darkweb/forum/{forum_id}/capture</code> -- Capture Content<a class="headerlink" href="#post-v1darkwebforumforum_idcapture-capture-content" title="Permanent link">&para;</a></h3>
+<p>Capture the current state of a forum's thread listing.</p>
+<h3 id="delete-v1darkwebforumforum_id-remove-forum">DELETE <code>/v1/darkweb/forum/{forum_id}</code> -- Remove Forum<a class="headerlink" href="#delete-v1darkwebforumforum_id-remove-forum" title="Permanent link">&para;</a></h3>
+<p>Remove a forum from monitoring.</p>
+<hr />
+<h3 id="forum-monitors">Forum Monitors<a class="headerlink" href="#forum-monitors" title="Permanent link">&para;</a></h3>
+<p>Create keyword-based monitors that scan forum posts and alert via webhook.</p>
+<h4 id="post-v1darkwebforummonitorcreate-create-monitor">POST <code>/v1/darkweb/forum/monitor/create</code> -- Create Monitor<a class="headerlink" href="#post-v1darkwebforummonitorcreate-create-monitor" title="Permanent link">&para;</a></h4>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Credential Leak Monitor&quot;</span><span class="p">,</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="nt">&quot;forums&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;forum_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;forum_2&quot;</span><span class="p">],</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span><span class="nt">&quot;keywords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;database&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;leak&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;credentials&quot;</span><span class="p">],</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="nt">&quot;notify_webhook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://hooks.slack.com/...&quot;</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="get-v1darkwebforummonitorlist-list-monitors">GET <code>/v1/darkweb/forum/monitor/list</code> -- List Monitors<a class="headerlink" href="#get-v1darkwebforummonitorlist-list-monitors" title="Permanent link">&para;</a></h4>
+<p>List all forum keyword monitors.</p>
+<h4 id="post-v1darkwebforummonitormonitor_idrun-run-monitor">POST <code>/v1/darkweb/forum/monitor/{monitor_id}/run</code> -- Run Monitor<a class="headerlink" href="#post-v1darkwebforummonitormonitor_idrun-run-monitor" title="Permanent link">&para;</a></h4>
+<p>Manually trigger a forum monitor check.</p>
+<h4 id="delete-v1darkwebforummonitormonitor_id-delete-monitor">DELETE <code>/v1/darkweb/forum/monitor/{monitor_id}</code> -- Delete Monitor<a class="headerlink" href="#delete-v1darkwebforummonitormonitor_id-delete-monitor" title="Permanent link">&para;</a></h4>
+<p>Remove a forum monitor.</p>
+<hr />
+<h2 id="paste-site-monitoring">Paste Site Monitoring<a class="headerlink" href="#paste-site-monitoring" title="Permanent link">&para;</a></h2>
+<p>Search and monitor paste sites for leaked credentials and sensitive data.</p>
+<h3 id="post-v1darkwebpastesearch-search-pastes">POST <code>/v1/darkweb/paste/search</code> -- Search Pastes<a class="headerlink" href="#post-v1darkwebpastesearch-search-pastes" title="Permanent link">&para;</a></h3>
+<p>Search paste sites for leaked data using keywords and pattern matchers.</p>
+<h4 id="request-body_2">Request Body<a class="headerlink" href="#request-body_2" title="Permanent link">&para;</a></h4>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="nt">&quot;patterns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;password&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;api_key&quot;</span><span class="p">],</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">  </span><span class="nt">&quot;date_from&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-01-01&quot;</span><span class="p">,</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span><span class="nt">&quot;limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>query</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Search term (domain, keyword, etc.)</td>
+</tr>
+<tr>
+<td><code>patterns</code></td>
+<td>array</td>
+<td>no</td>
+<td>Pattern matchers to apply (see table below)</td>
+</tr>
+<tr>
+<td><code>date_from</code></td>
+<td>string</td>
+<td>no</td>
+<td>Start date (<code>YYYY-MM-DD</code>)</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>int</td>
+<td>no</td>
+<td>Maximum results (default: 100)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="example_6">Example<a class="headerlink" href="#example_6" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">curl</label><label for="__tabbed_2_2">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/v1/darkweb/paste/search<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;query&quot;: &quot;example.com&quot;, &quot;patterns&quot;: [&quot;email&quot;, &quot;password&quot;, &quot;api_key&quot;]}&#39;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;http://localhost:8001/v1/darkweb/paste/search&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    <span class="s2">&quot;patterns&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="s2">&quot;api_key&quot;</span><span class="p">],</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="p">})</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="k">for</span> <span class="n">paste</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;pastes&quot;</span><span class="p">]:</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">paste</span><span class="p">[</span><span class="s1">&#39;site&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">paste</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> | matches: </span><span class="si">{</span><span class="n">paste</span><span class="p">[</span><span class="s1">&#39;matches&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p">{</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">    </span><span class="nt">&quot;pastes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">      </span><span class="p">{</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">,</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">        </span><span class="nt">&quot;site&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pastebin&quot;</span><span class="p">,</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">        </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Database dump&quot;</span><span class="p">,</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">        </span><span class="nt">&quot;preview&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user@example.com:password123...&quot;</span><span class="p">,</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="w">        </span><span class="nt">&quot;matches&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;password&quot;</span><span class="p">],</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="w">        </span><span class="nt">&quot;posted_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-01-10&quot;</span><span class="p">,</span>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://pastebin.com/abc123&quot;</span>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="w">    </span><span class="p">],</span>
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a><span class="w">    </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span>
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebpastepatterns-available-patterns">GET <code>/v1/darkweb/paste/patterns</code> -- Available Patterns<a class="headerlink" href="#get-v1darkwebpastepatterns-available-patterns" title="Permanent link">&para;</a></h3>
+<p>Get the list of built-in pattern matchers for paste monitoring.</p>
+<h4 id="example_7">Example<a class="headerlink" href="#example_7" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>curl<span class="w"> </span>http://localhost:8001/v1/darkweb/paste/patterns
+</span></code></pre></div>
+<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>email</code></td>
+<td>Email addresses</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Password patterns</td>
+</tr>
+<tr>
+<td><code>api_key</code></td>
+<td><abbr title="Application Programming Interface">API</abbr> keys (AWS, GitHub, etc.)</td>
+</tr>
+<tr>
+<td><code>credit_card</code></td>
+<td>Credit card numbers</td>
+</tr>
+<tr>
+<td><code>ssn</code></td>
+<td>Social Security Numbers</td>
+</tr>
+<tr>
+<td><code>private_key</code></td>
+<td>RSA / SSH private keys</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="paste-monitors">Paste Monitors<a class="headerlink" href="#paste-monitors" title="Permanent link">&para;</a></h3>
+<p>Create persistent paste monitoring jobs that check for new leaks on a schedule.</p>
+<h4 id="post-v1darkwebpastemonitorcreate-create-monitor">POST <code>/v1/darkweb/paste/monitor/create</code> -- Create Monitor<a class="headerlink" href="#post-v1darkwebpastemonitorcreate-create-monitor" title="Permanent link">&para;</a></h4>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="p">{</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Company Leak Monitor&quot;</span><span class="p">,</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">  </span><span class="nt">&quot;keywords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;@ourcompany.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ourcompany.internal&quot;</span><span class="p">],</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">  </span><span class="nt">&quot;patterns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;password&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;api_key&quot;</span><span class="p">],</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">  </span><span class="nt">&quot;notify_webhook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://hooks.slack.com/...&quot;</span><span class="p">,</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">  </span><span class="nt">&quot;check_interval_hours&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Monitor display name</td>
+</tr>
+<tr>
+<td><code>keywords</code></td>
+<td>array</td>
+<td>yes</td>
+<td>Keywords to search for</td>
+</tr>
+<tr>
+<td><code>patterns</code></td>
+<td>array</td>
+<td>no</td>
+<td>Pattern matchers to apply</td>
+</tr>
+<tr>
+<td><code>notify_webhook</code></td>
+<td>string</td>
+<td>no</td>
+<td>Webhook URL for alerts</td>
+</tr>
+<tr>
+<td><code>check_interval_hours</code></td>
+<td>int</td>
+<td>no</td>
+<td>Check frequency (default: 1)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="get-v1darkwebpastemonitorlist-list-monitors">GET <code>/v1/darkweb/paste/monitor/list</code> -- List Monitors<a class="headerlink" href="#get-v1darkwebpastemonitorlist-list-monitors" title="Permanent link">&para;</a></h4>
+<p>List all paste monitors.</p>
+<h4 id="post-v1darkwebpastemonitormonitor_idrun-run-monitor">POST <code>/v1/darkweb/paste/monitor/{monitor_id}/run</code> -- Run Monitor<a class="headerlink" href="#post-v1darkwebpastemonitormonitor_idrun-run-monitor" title="Permanent link">&para;</a></h4>
+<p>Manually trigger a paste monitor check.</p>
+<h4 id="delete-v1darkwebpastemonitormonitor_id-delete-monitor">DELETE <code>/v1/darkweb/paste/monitor/{monitor_id}</code> -- Delete Monitor<a class="headerlink" href="#delete-v1darkwebpastemonitormonitor_id-delete-monitor" title="Permanent link">&para;</a></h4>
+<p>Remove a paste monitor.</p>
+<hr />
+<h2 id="ransomware-sites">Ransomware Sites<a class="headerlink" href="#ransomware-sites" title="Permanent link">&para;</a></h2>
+<h3 id="get-v1darkwebsites-list-ransomware-sites">GET <code>/v1/darkweb/sites</code> -- List Ransomware Sites<a class="headerlink" href="#get-v1darkwebsites-list-ransomware-sites" title="Permanent link">&para;</a></h3>
+<p>List tracked ransomware leak sites with their current status. Data sourced from ransomwatch and other pluggable sources.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>group</code></td>
+<td>string</td>
+<td>-</td>
+<td>Filter by ransomware group</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>string</td>
+<td>-</td>
+<td>Filter by site status</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td>string</td>
+<td>-</td>
+<td>Filter by data source</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>integer</td>
+<td>100</td>
+<td>Maximum results</td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td>integer</td>
+<td>0</td>
+<td>Pagination offset</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/sites?group=lockbit&amp;limit=20&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebsitessite_id-get-site-details">GET <code>/v1/darkweb/sites/{site_id}</code> -- Get Site Details<a class="headerlink" href="#get-v1darkwebsitessite_id-get-site-details" title="Permanent link">&para;</a></h3>
+<p>Get details for a specific ransomware site including status and history.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>curl<span class="w"> </span>http://localhost:8001/v1/darkweb/sites/abc123
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebsitesgroups-list-ransomware-groups">GET <code>/v1/darkweb/sites/groups</code> -- List Ransomware Groups<a class="headerlink" href="#get-v1darkwebsitesgroups-list-ransomware-groups" title="Permanent link">&para;</a></h3>
+<p>List ransomware groups with per-group statistics including site counts and uptime.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>limit</code></td>
+<td>integer</td>
+<td>100</td>
+<td>Maximum results</td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td>integer</td>
+<td>0</td>
+<td>Pagination offset</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>curl<span class="w"> </span>http://localhost:8001/v1/darkweb/sites/groups
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebsitessources-list-data-sources">GET <code>/v1/darkweb/sites/sources</code> -- List Data Sources<a class="headerlink" href="#get-v1darkwebsitessources-list-data-sources" title="Permanent link">&para;</a></h3>
+<p>List all registered ransomware data sources with their status.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>curl<span class="w"> </span>http://localhost:8001/v1/darkweb/sites/sources
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebsitesstats-site-statistics">GET <code>/v1/darkweb/sites/stats</code> -- Site Statistics<a class="headerlink" href="#get-v1darkwebsitesstats-site-statistics" title="Permanent link">&para;</a></h3>
+<p>Get aggregate ransomware site statistics: total tracked, online/offline counts, sites by group, historical uptime.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>curl<span class="w"> </span>http://localhost:8001/v1/darkweb/sites/stats
+</span></code></pre></div>
+<hr />
+<h3 id="post-v1darkwebsitescheck-check-site-status">POST <code>/v1/darkweb/sites/check</code> -- Check Site Status<a class="headerlink" href="#post-v1darkwebsitescheck-check-site-status" title="Permanent link">&para;</a></h3>
+<p>Probe a ransomware site via <abbr title="The Onion Router - anonymity network routing traffic through encrypted relays">Tor</abbr>. Returns online/offline status, response time, captcha detection, and JavaScript requirements.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/v1/darkweb/sites/check<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;url&quot;: &quot;http://example.onion&quot;}&#39;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="post-v1darkwebsitesrefresh-refresh-site-status">POST <code>/v1/darkweb/sites/refresh</code> -- Refresh Site Status<a class="headerlink" href="#post-v1darkwebsitesrefresh-refresh-site-status" title="Permanent link">&para;</a></h3>
+<p>Bulk-check site availability. Limited to prevent overwhelming the <abbr title="The Onion Router - anonymity network routing traffic through encrypted relays">Tor</abbr> network.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>limit</code></td>
+<td>integer</td>
+<td>10</td>
+<td>Maximum sites to check</td>
+</tr>
+<tr>
+<td><code>group</code></td>
+<td>string</td>
+<td>-</td>
+<td>Filter by group</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/sites/refresh?limit=10&amp;group=lockbit&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="post-v1darkwebsitesscrape-scrape-onion-site">POST <code>/v1/darkweb/sites/scrape</code> -- Scrape .onion Site<a class="headerlink" href="#post-v1darkwebsitesscrape-scrape-onion-site" title="Permanent link">&para;</a></h3>
+<p>Scrape content from an .onion site via <abbr title="The Onion Router - anonymity network routing traffic through encrypted relays">Tor</abbr> using aiohttp-socks. Returns HTML content, extracted text, page title, metadata, all links, and images.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/v1/darkweb/sites/scrape<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;url&quot;: &quot;http://example.onion&quot;}&#39;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="post-v1darkwebsitesbulk-scrape-bulk-scrape-sites">POST <code>/v1/darkweb/sites/bulk-scrape</code> -- Bulk Scrape Sites<a class="headerlink" href="#post-v1darkwebsitesbulk-scrape-bulk-scrape-sites" title="Permanent link">&para;</a></h3>
+<p>Scrape multiple .onion sites in parallel with rate limiting. Extracts victim/company data from HTML and compares with upstream feeds.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/v1/darkweb/sites/bulk-scrape<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;urls&quot;: [&quot;http://site1.onion&quot;, &quot;http://site2.onion&quot;]}&#39;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="post-v1darkwebsitesscreenshot-capture-site-screenshot">POST <code>/v1/darkweb/sites/screenshot</code> -- Capture Site Screenshot<a class="headerlink" href="#post-v1darkwebsitesscreenshot-capture-site-screenshot" title="Permanent link">&para;</a></h3>
+<p>Capture a screenshot of an .onion site via <abbr title="The Onion Router - anonymity network routing traffic through encrypted relays">Tor</abbr> using <abbr title="Anti-fingerprint Firefox browser used for web scraping with bot detection bypass">Camoufox</abbr> browser. Screenshots are saved to <code>/app/data/screenshots/</code>.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/v1/darkweb/sites/screenshot<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;url&quot;: &quot;http://example.onion&quot;}&#39;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="post-v1darkwebsitesscreenshotsbulk-bulk-screenshots">POST <code>/v1/darkweb/sites/screenshots/bulk</code> -- Bulk Screenshots<a class="headerlink" href="#post-v1darkwebsitesscreenshotsbulk-bulk-screenshots" title="Permanent link">&para;</a></h3>
+<p>Capture screenshots of multiple .onion sites in parallel with concurrency limits.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/v1/darkweb/sites/screenshots/bulk<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;urls&quot;: [&quot;http://site1.onion&quot;, &quot;http://site2.onion&quot;]}&#39;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="post-v1darkwebsitesextract-victims-extract-victims-from-html">POST <code>/v1/darkweb/sites/extract-victims</code> -- Extract Victims from HTML<a class="headerlink" href="#post-v1darkwebsitesextract-victims-extract-victims-from-html" title="Permanent link">&para;</a></h3>
+<p>Parse HTML using group-specific patterns to extract victim data: company names, websites/domains, countries, data sizes, publication dates.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/sites/extract-victims?html=&lt;html&gt;...&lt;/html&gt;&amp;group_name=lockbit&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebsitesexportonion-export-onion-urls">GET <code>/v1/darkweb/sites/export/onion</code> -- Export .onion URLs<a class="headerlink" href="#get-v1darkwebsitesexportonion-export-onion-urls" title="Permanent link">&para;</a></h3>
+<p>Export all ransomware .onion addresses aggregated from all sources.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>available_only</code></td>
+<td>boolean</td>
+<td>false</td>
+<td>Only include online sites</td>
+</tr>
+<tr>
+<td><code>format</code></td>
+<td>string</td>
+<td>json</td>
+<td>Export format: <code>json</code>, <code>csv</code>, <code>txt</code></td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/sites/export/onion?format=txt&amp;available_only=true&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebsitesstream-stream-status-changes-sse">GET <code>/v1/darkweb/sites/stream</code> -- Stream Status Changes (<abbr title="Server-Sent Events - HTTP-based protocol for real-time server-to-client streaming">SSE</abbr>)<a class="headerlink" href="#get-v1darkwebsitesstream-stream-status-changes-sse" title="Permanent link">&para;</a></h3>
+<p>Stream ransomware site status changes via Server-Sent Events. Emits events when sites go online/offline.</p>
+<div class="language-javascript highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">evtSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">EventSource</span><span class="p">(</span><span class="s2">&quot;http://localhost:8001/v1/darkweb/sites/stream&quot;</span><span class="p">);</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="nx">evtSource</span><span class="p">.</span><span class="nx">onmessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">data</span><span class="p">.</span><span class="nx">group</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">data</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="p">};</span>
+</span></code></pre></div>
+<hr />
+<h2 id="change-detection">Change Detection<a class="headerlink" href="#change-detection" title="Permanent link">&para;</a></h2>
+<h3 id="post-v1darkwebsitesdetect-change-detect-site-change">POST <code>/v1/darkweb/sites/detect-change</code> -- Detect Site Change<a class="headerlink" href="#post-v1darkwebsitesdetect-change-detect-site-change" title="Permanent link">&para;</a></h3>
+<p>Detect if a site's content has changed since last check. Compares content hash with stored hash. If changed, records the change in history, emits <abbr title="Server-Sent Events - HTTP-based protocol for real-time server-to-client streaming">SSE</abbr> event, and stores new hash.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/v1/darkweb/sites/detect-change<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;url&quot;: &quot;http://example.onion&quot;}&#39;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="post-v1darkwebsitesdetect-changesbulk-bulk-change-detection">POST <code>/v1/darkweb/sites/detect-changes/bulk</code> -- Bulk Change Detection<a class="headerlink" href="#post-v1darkwebsitesdetect-changesbulk-bulk-change-detection" title="Permanent link">&para;</a></h3>
+<p>Check multiple sites for content changes. Returns summary of sites that changed (with diff info), sites unchanged, first-time checks (baseline established), and failed checks.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/v1/darkweb/sites/detect-changes/bulk<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;urls&quot;: [&quot;http://site1.onion&quot;, &quot;http://site2.onion&quot;]}&#39;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebsiteschangesrecent-recent-changes">GET <code>/v1/darkweb/sites/changes/recent</code> -- Recent Changes<a class="headerlink" href="#get-v1darkwebsiteschangesrecent-recent-changes" title="Permanent link">&para;</a></h3>
+<p>Get chronologically sorted list of recent content changes across all monitored ransomware leak sites. Useful for alerting dashboards.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>limit</code></td>
+<td>integer</td>
+<td>100</td>
+<td>Maximum results</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/sites/changes/recent?limit=50&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebsiteschangeshistoryurl-site-change-history">GET <code>/v1/darkweb/sites/changes/history/{url}</code> -- Site Change History<a class="headerlink" href="#get-v1darkwebsiteschangeshistoryurl-site-change-history" title="Permanent link">&para;</a></h3>
+<p>Get change history for a specific site: old/new content hashes, timestamps, content length differences.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>url</code></td>
+<td>string</td>
+<td>(required)</td>
+<td>Site URL</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>integer</td>
+<td>50</td>
+<td>Maximum results</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/sites/changes/history/http%3A%2F%2Fexample.onion&quot;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="victims">Victims<a class="headerlink" href="#victims" title="Permanent link">&para;</a></h2>
+<h3 id="get-v1darkwebvictims-list-ransomware-victims">GET <code>/v1/darkweb/victims</code> -- List Ransomware Victims<a class="headerlink" href="#get-v1darkwebvictims-list-ransomware-victims" title="Permanent link">&para;</a></h3>
+<p>List companies claimed by ransomware groups on their leak sites. Data sourced from ransomwatch and ransomlook.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>group</code></td>
+<td>string</td>
+<td>-</td>
+<td>Filter by ransomware group</td>
+</tr>
+<tr>
+<td><code>days</code></td>
+<td>string</td>
+<td>-</td>
+<td>Filter by time period</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>integer</td>
+<td>100</td>
+<td>Maximum results</td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td>integer</td>
+<td>0</td>
+<td>Pagination offset</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/victims?group=lockbit&amp;days=30&amp;limit=50&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebvictimssearch-search-victims">GET <code>/v1/darkweb/victims/search</code> -- Search Victims<a class="headerlink" href="#get-v1darkwebvictimssearch-search-victims" title="Permanent link">&para;</a></h3>
+<p>Search ransomware victims by company name to find if a specific company has been targeted.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>q</code></td>
+<td>string</td>
+<td>(required)</td>
+<td>Search query</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>integer</td>
+<td>50</td>
+<td>Maximum results</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/victims/search?q=acme+corp&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebvictimsstats-victim-statistics">GET <code>/v1/darkweb/victims/stats</code> -- Victim Statistics<a class="headerlink" href="#get-v1darkwebvictimsstats-victim-statistics" title="Permanent link">&para;</a></h3>
+<p>Get aggregate victim statistics: total victims in period, top ransomware groups by victim count, daily victim counts.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>days</code></td>
+<td>integer</td>
+<td>30</td>
+<td>Time period in days</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/victims/stats?days=90&quot;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="data-sync-feeds">Data Sync &amp; Feeds<a class="headerlink" href="#data-sync-feeds" title="Permanent link">&para;</a></h2>
+<h3 id="get-v1darkwebfeeds-list-ransomware-feeds">GET <code>/v1/darkweb/feeds</code> -- List Ransomware Feeds<a class="headerlink" href="#get-v1darkwebfeeds-list-ransomware-feeds" title="Permanent link">&para;</a></h3>
+<p>List all raw data feed URLs for ransomware intelligence. These are the upstream sources where data is pulled from.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>curl<span class="w"> </span>http://localhost:8001/v1/darkweb/feeds
+</span></code></pre></div>
+<hr />
+<h3 id="post-v1darkwebsync-sync-all-data">POST <code>/v1/darkweb/sync</code> -- Sync All Data<a class="headerlink" href="#post-v1darkwebsync-sync-all-data" title="Permanent link">&para;</a></h3>
+<p>Sync ALL ransomware data from upstream sources (ransomware.live, ransomwatch, ransomlook) to local <abbr title="Redis-compatible in-memory data store used for caching (Redis fork)">Valkey</abbr> storage.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/v1/darkweb/sync
+</span></code></pre></div>
+<hr />
+<h3 id="post-v1darkwebmerge-merge-new-from-upstream">POST <code>/v1/darkweb/merge</code> -- Merge New from Upstream<a class="headerlink" href="#post-v1darkwebmerge-merge-new-from-upstream" title="Permanent link">&para;</a></h3>
+<p>Check upstream for NEW URLs and merge them into local database without replacing existing data. Finds URLs/victims not present locally and appends them.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/v1/darkweb/merge
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkwebdiff-diff-with-upstream">GET <code>/v1/darkweb/diff</code> -- Diff with Upstream<a class="headerlink" href="#get-v1darkwebdiff-diff-with-upstream" title="Permanent link">&para;</a></h3>
+<p>Check what's NEW in upstream sources vs the local database. Compares local <abbr title="Redis-compatible in-memory data store used for caching (Redis fork)">Valkey</abbr> data with ransomware.live, ransomwatch, ransomlook and shows missing URLs/victims. Does NOT modify data.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>curl<span class="w"> </span>http://localhost:8001/v1/darkweb/diff
+</span></code></pre></div>
+<hr />
+<h2 id="local-storage">Local Storage<a class="headerlink" href="#local-storage" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Local-First</p>
+<p>Local endpoints return data from <abbr title="Redis-compatible in-memory data store used for caching (Redis fork)">Valkey</abbr> storage with no external <abbr title="Application Programming Interface">API</abbr> calls. Run <code>/v1/darkweb/sync</code> first to populate local data.</p>
+</div>
+<h3 id="get-v1darkweblocalstatus-local-sync-status">GET <code>/v1/darkweb/local/status</code> -- Local Sync Status<a class="headerlink" href="#get-v1darkweblocalstatus-local-sync-status" title="Permanent link">&para;</a></h3>
+<p>Shows when data was last synced and counts of local sites/victims.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>curl<span class="w"> </span>http://localhost:8001/v1/darkweb/local/status
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkweblocalsites-local-sites">GET <code>/v1/darkweb/local/sites</code> -- Local Sites<a class="headerlink" href="#get-v1darkweblocalsites-local-sites" title="Permanent link">&para;</a></h3>
+<p>Get ransomware sites from local storage.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>onion_only</code></td>
+<td>boolean</td>
+<td>false</td>
+<td>Only return .onion sites</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>integer</td>
+<td>1000</td>
+<td>Maximum results</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/local/sites?onion_only=true&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkweblocalvictims-local-victims">GET <code>/v1/darkweb/local/victims</code> -- Local Victims<a class="headerlink" href="#get-v1darkweblocalvictims-local-victims" title="Permanent link">&para;</a></h3>
+<p>Get ransomware victims from local storage.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>limit</code></td>
+<td>integer</td>
+<td>1000</td>
+<td>Maximum results</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/local/victims?limit=500&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1darkweblocalonion-local-onion-urls">GET <code>/v1/darkweb/local/onion</code> -- Local .onion URLs<a class="headerlink" href="#get-v1darkweblocalonion-local-onion-urls" title="Permanent link">&para;</a></h3>
+<p>Get all .onion URLs from local storage.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>format</code></td>
+<td>string</td>
+<td>json</td>
+<td>Export format: <code>json</code>, <code>txt</code></td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/darkweb/local/onion?format=txt&quot;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Audience</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Security teams</strong></td>
+<td>Monitor for leaked credentials and data breaches</td>
+</tr>
+<tr>
+<td><strong>Threat intelligence</strong></td>
+<td>Track ransomware campaigns targeting your industry</td>
+</tr>
+<tr>
+<td><strong>Brand protection</strong></td>
+<td>Detect mentions of your organization on the dark web</td>
+</tr>
+<tr>
+<td><strong>Incident response</strong></td>
+<td>Quickly identify if your organization has been compromised</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="February 11, 2026 19:09:22 UTC"><span class="timeago" datetime="2026-02-11T19:09:22+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="February 11, 2026 19:09:22 UTC">2026-02-11</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="February 11, 2026 19:09:22 UTC"><span class="timeago" datetime="2026-02-11T19:09:22+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="February 11, 2026 19:09:22 UTC">2026-02-11</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../security/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Security Testing">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Security Testing
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../breach-spider/" class="md-footer__link md-footer__link--next" aria-label="Next: Breach Spider">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Breach Spider
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.instant", "navigation.instant.prefetch", "navigation.path", "navigation.footer", "navigation.indexes", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.select", "content.code.annotate", "content.tabs.link", "content.tooltips", "toc.follow", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"AI": "ai", "Automation": "automation", "Crypto": "crypto", "Dark Web": "darkweb", "Data": "data", "Network": "network", "OSINT": "osint", "Search": "search", "Security": "security"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+    
+  </body>
+</html>

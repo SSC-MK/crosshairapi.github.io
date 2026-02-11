@@ -1,0 +1,4417 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Search & Intelligence Platform - OSINT, threat intel, and security research API">
+      
+      
+      
+        <link rel="canonical" href="http://localhost:8003/api/driftnet/">
+      
+      
+        <link rel="prev" href="../intelligence/">
+      
+      
+        <link rel="next" href="../network/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Driftnet OSINT - Crosshair API</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--osint{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M17.9%2017.39c-.26-.8-1.01-1.39-1.9-1.39h-1v-3a1%201%200%200%200-1-1H8v-2h2a1%201%200%200%200%201-1V7h2a2%202%200%200%200%202-2v-.41a7.984%207.984%200%200%201%202.9%2012.8M11%2019.93c-3.95-.49-7-3.85-7-7.93%200-.62.08-1.22.21-1.79L9%2015v1a2%202%200%200%200%202%202m1-16A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202%22/%3E%3C/svg%3E');}.md-tag.md-tag--security{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%201%203%205v6c0%205.55%203.84%2010.74%209%2012%205.16-1.26%209-6.45%209-12V5zm0%206c1.4%200%202.8%201.1%202.8%202.5V11c.6%200%201.2.6%201.2%201.3v3.5c0%20.6-.6%201.2-1.3%201.2H9.2c-.6%200-1.2-.6-1.2-1.3v-3.5c0-.6.6-1.2%201.2-1.2V9.5C9.2%208.1%2010.6%207%2012%207m0%201.2c-.8%200-1.5.5-1.5%201.3V11h3V9.5c0-.8-.7-1.3-1.5-1.3%22/%3E%3C/svg%3E');}.md-tag.md-tag--search{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%203A6.5%206.5%200%200%201%2016%209.5c0%201.61-.59%203.09-1.56%204.23l.27.27h.79l5%205-1.5%201.5-5-5v-.79l-.27-.27A6.52%206.52%200%200%201%209.5%2016%206.5%206.5%200%200%201%203%209.5%206.5%206.5%200%200%201%209.5%203m0%202C7%205%205%207%205%209.5S7%2014%209.5%2014%2014%2012%2014%209.5%2012%205%209.5%205%22/%3E%3C/svg%3E');}.md-tag.md-tag--network{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M10%202c-1.11%200-2%20.89-2%202v3c0%201.11.89%202%202%202h1v2H2v2h4v2H5c-1.11%200-2%20.89-2%202v3c0%201.11.89%202%202%202h4c1.11%200%202-.89%202-2v-3c0-1.11-.89-2-2-2H8v-2h8v2h-1c-1.11%200-2%20.89-2%202v3c0%201.11.89%202%202%202h4c1.11%200%202-.89%202-2v-3c0-1.11-.89-2-2-2h-1v-2h4v-2h-9V9h1c1.11%200%202-.89%202-2V4c0-1.11-.89-2-2-2zm0%202h4v3h-4zM5%2017h4v3H5zm10%200h4v3h-4z%22/%3E%3C/svg%3E');}.md-tag.md-tag--darkweb{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M16.36%2014c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26%201.31.26%202s-.1%201.36-.26%202m-5.15%205.56c.6-1.11%201.06-2.31%201.38-3.56h2.95a8.03%208.03%200%200%201-4.33%203.56M14.34%2014H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16%201.32.16%202s-.07%201.34-.16%202M12%2019.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41%201.43-1.08%202.76-1.91%203.96M8%208H5.08A7.92%207.92%200%200%201%209.4%204.44C8.8%205.55%208.35%206.75%208%208m-2.92%208H8c.35%201.25.8%202.45%201.4%203.56A8%208%200%200%201%205.08%2016m-.82-2C4.1%2013.36%204%2012.69%204%2012s.1-1.36.26-2h3.38c-.08.66-.14%201.32-.14%202s.06%201.34.14%202M12%204.03c.83%201.2%201.5%202.54%201.91%203.97h-3.82c.41-1.43%201.08-2.77%201.91-3.97M18.92%208h-2.95a15.7%2015.7%200%200%200-1.38-3.56c1.84.63%203.37%201.9%204.33%203.56M12%202C6.47%202%202%206.5%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202%22/%3E%3C/svg%3E');}.md-tag.md-tag--automation{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%202a2%202%200%200%201%202%202c0%20.74-.4%201.39-1%201.73V7h1a7%207%200%200%201%207%207h1a1%201%200%200%201%201%201v3a1%201%200%200%201-1%201h-1v1a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2v-1H2a1%201%200%200%201-1-1v-3a1%201%200%200%201%201-1h1a7%207%200%200%201%207-7h1V5.73c-.6-.34-1-.99-1-1.73a2%202%200%200%201%202-2M7.5%2013A2.5%202.5%200%200%200%205%2015.5%202.5%202.5%200%200%200%207.5%2018a2.5%202.5%200%200%200%202.5-2.5A2.5%202.5%200%200%200%207.5%2013m9%200a2.5%202.5%200%200%200-2.5%202.5%202.5%202.5%200%200%200%202.5%202.5%202.5%202.5%200%200%200%202.5-2.5%202.5%202.5%200%200%200-2.5-2.5%22/%3E%3C/svg%3E');}.md-tag.md-tag--data{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%203C7.58%203%204%204.79%204%207s3.58%204%208%204%208-1.79%208-4-3.58-4-8-4M4%209v3c0%202.21%203.58%204%208%204s8-1.79%208-4V9c0%202.21-3.58%204-8%204s-8-1.79-8-4m0%205v3c0%202.21%203.58%204%208%204s8-1.79%208-4v-3c0%202.21-3.58%204-8%204s-8-1.79-8-4%22/%3E%3C/svg%3E');}.md-tag.md-tag--ai{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M21.33%2012.91c.09%201.55-.62%203.04-1.89%203.95l.77%201.49c.23.45.26.98.06%201.45-.19.47-.58.84-1.06%201l-.79.25a1.687%201.687%200%200%201-1.86-.55L14.44%2018c-.89-.15-1.73-.53-2.44-1.1-.5.15-1%20.23-1.5.23-.88%200-1.76-.27-2.5-.79-.53.16-1.07.23-1.62.22-.79.01-1.57-.15-2.3-.45a4.1%204.1%200%200%201-2.43-3.61c-.08-.72.04-1.45.35-2.11-.29-.75-.32-1.57-.07-2.33C2.3%207.11%203%206.32%203.87%205.82c.58-1.69%202.21-2.82%204-2.7%201.6-1.5%204.05-1.66%205.83-.37.42-.11.86-.17%201.3-.17%201.36-.03%202.65.57%203.5%201.64%202.04.53%203.5%202.35%203.58%204.47.05%201.11-.25%202.2-.86%203.13.07.36.11.72.11%201.09m-5-1.41c.57.07%201.02.5%201.02%201.07a1%201%200%200%201-1%201h-.63c-.32.9-.88%201.69-1.62%202.29.25.09.51.14.77.21%205.13-.07%204.53-3.2%204.53-3.25a2.59%202.59%200%200%200-2.69-2.49%201%201%200%200%201-1-1%201%201%200%200%201%201-1c1.23.03%202.41.49%203.33%201.3.05-.29.08-.59.08-.89-.06-1.24-.62-2.32-2.87-2.53-1.25-2.96-4.4-1.32-4.4-.4-.03.23.21.72.25.75a1%201%200%200%201%201%201c0%20.55-.45%201-1%201-.53-.02-1.03-.22-1.43-.56-.48.31-1.03.5-1.6.56-.57.05-1.04-.35-1.07-.9a.97.97%200%200%201%20.88-1.1c.16-.02.94-.14.94-.77%200-.66.25-1.29.68-1.79-.92-.25-1.91.08-2.91%201.29C6.75%205%206%205.25%205.45%207.2%204.5%207.67%204%208%203.78%209c1.08-.22%202.19-.13%203.22.25.5.19.78.75.59%201.29-.19.52-.77.78-1.29.59-.73-.32-1.55-.34-2.3-.06-.32.27-.32.83-.32%201.27%200%20.74.37%201.43%201%201.83.53.27%201.12.41%201.71.4q-.225-.39-.39-.81a1.038%201.038%200%200%201%201.96-.68c.4%201.14%201.42%201.92%202.62%202.05%201.37-.07%202.59-.88%203.19-2.13.23-1.38%201.34-1.5%202.56-1.5m2%207.47-.62-1.3-.71.16%201%201.25zm-4.65-8.61a1%201%200%200%200-.91-1.03c-.71-.04-1.4.2-1.93.67-.57.58-.87%201.38-.84%202.19a1%201%200%200%200%201%201c.57%200%201-.45%201-1%200-.27.07-.54.23-.76.12-.1.27-.15.43-.15.55.03%201.02-.38%201.02-.92%22/%3E%3C/svg%3E');}.md-tag.md-tag--crypto{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M17.06%2011.57A3.9%203.9%200%200%200%2018%209c0-1.86-1.27-3.43-3-3.87V3h-2v2h-2V3H9v2H6v2h2v10H6v2h3v2h2v-2h2v2h2v-2c2.21%200%204-1.79%204-4%200-1.45-.78-2.73-1.94-3.43M10%207h4c1.1%200%202%20.9%202%202s-.9%202-2%202h-4zm5%2010h-5v-4h5c1.1%200%202%20.9%202%202s-.9%202-2%202%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.56f7ac64.css">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#driftnet-osint-endpoints" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            
+            
+<a href="/api/telegram/">
+  <strong>New:</strong> Telegram Threat Intelligence endpoints now available &mdash; track ransomware groups, data leak channels, and hacktivist activity.
+</a>
+
+          </div>
+          
+            <script>var el=document.querySelector("[data-md-component=announce]");if(el){var content=el.querySelector(".md-typeset");__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0)}</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Crosshair API" class="md-header__button md-logo" aria-label="Crosshair API" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.05 13H1v-2h2.05C3.5 6.83 6.83 3.5 11 3.05V1h2v2.05c4.17.45 7.5 3.78 7.95 7.95H23v2h-2.05c-.45 4.17-3.78 7.5-7.95 7.95V23h-2v-2.05C6.83 20.5 3.5 17.17 3.05 13M12 5a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crosshair API
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Driftnet OSINT
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/openapi/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Interactive API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../operations/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Crosshair API" class="md-nav__button md-logo" aria-label="Crosshair API" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.05 13H1v-2h2.05C3.5 6.83 6.83 3.5 11 3.05V1h2v2.05c4.17.45 7.5 3.78 7.95 7.95H23v2h-2.05c-.45 4.17-3.78 7.5-7.95 7.95V23h-2v-2.05C6.83 20.5 3.5 17.17 3.05 13M12 5a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7"/></svg>
+
+    </a>
+    Crosshair API
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting-started/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../response-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Response Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Content Extraction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intelligence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intelligence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Driftnet OSINT
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Driftnet OSINT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endpoint-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoint Categories
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DNS Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdnsforward" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/dns/forward
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdnsreverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/dns/reverse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdnsmx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/dns/mx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdnstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/dns/txt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdomainwhois" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/domain/whois
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdomainreverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/domain/reverse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdomainintel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/domain/intel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip-intelligence-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IP Intelligence Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IP Intelligence Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetipwhois" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/whois
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetipsummary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetipabuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/abuse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetipbgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/bgp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetiproutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/routes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetipreverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/reverse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetipintel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/intel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scanning-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scanning Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scanning Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetscanprotocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/scan/protocols
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetscanports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/scan/ports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetscandomains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/scan/domains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetscanjarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/scan/jarm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetscanfavicons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/scan/favicons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certificate-transparency-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certificate Transparency Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Certificate Transparency Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetctlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ct/log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetsubdomains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/subdomains
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-source-intelligence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Source Intelligence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-Source Intelligence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetmultisummary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/multi/summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Data
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reference Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetcve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/cve
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suggestion-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suggestion Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Suggestion Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetsuggestdomains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/suggest/domains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetsuggestscan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/suggest/scan
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../darkweb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dark Web
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../breach-spider/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Breach Spider
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="Recently added">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spider-generator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spider Generator
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="Recently added">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crawler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Crawler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../telegram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telegram Intel
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--new" title="Recently added">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crypto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crypto Wallets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../automation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streaming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Streaming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interactive API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Interactive API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/openapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAPI Explorer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../operations/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endpoint-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoint Categories
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DNS Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdnsforward" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/dns/forward
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdnsreverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/dns/reverse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdnsmx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/dns/mx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdnstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/dns/txt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdomainwhois" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/domain/whois
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdomainreverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/domain/reverse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetdomainintel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/domain/intel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip-intelligence-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IP Intelligence Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IP Intelligence Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetipwhois" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/whois
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetipsummary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetipabuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/abuse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetipbgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/bgp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetiproutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/routes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetipreverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/reverse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetipintel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ip/intel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scanning-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scanning Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scanning Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetscanprotocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/scan/protocols
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetscanports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/scan/ports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetscandomains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/scan/domains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetscanjarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/scan/jarm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetscanfavicons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/scan/favicons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certificate-transparency-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certificate Transparency Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Certificate Transparency Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetctlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/ct/log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetsubdomains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/subdomains
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-source-intelligence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Source Intelligence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-Source Intelligence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetmultisummary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/multi/summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Data
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reference Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetcve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/cve
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suggestion-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suggestion Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Suggestion Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetsuggestdomains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/suggest/domains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-v1driftnetsuggestscan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /v1/driftnet/suggest/scan
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+        
+        
+          
+        
+      
+      
+        <a href="../../tags/#tag:osint" class="md-tag md-tag-icon md-tag--osint">OSINT</a>
+      
+    
+  </nav>
+
+
+
+<h1 id="driftnet-osint-endpoints">Driftnet <abbr title="Open Source Intelligence - intelligence gathered from publicly available sources">OSINT</abbr> Endpoints<a class="headerlink" href="#driftnet-osint-endpoints" title="Permanent link">&para;</a></h1>
+<p>The Driftnet endpoints provide comprehensive internet intelligence via the Driftnet.io <abbr title="Application Programming Interface">API</abbr>. With 25 endpoints spanning <abbr title="Domain Name System - translates domain names to IP addresses">DNS</abbr>, <abbr title="Protocol for querying domain registration and IP address ownership data">WHOIS</abbr>, IP intelligence, scanning, certificate transparency, and vulnerability data, Driftnet offers deep <abbr title="Open Source Intelligence - intelligence gathered from publicly available sources">OSINT</abbr> capabilities for security research and threat intelligence.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title"><abbr title="Application Programming Interface">API</abbr> Key Required</p>
+<p>All Driftnet endpoints require a <code>DRIFTNET_API_KEY</code> to be configured.</p>
+<div class="language-bash highlight"><span class="filename">Environment Variable</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Add to .env or environment variables</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">DRIFTNET_API_KEY</span><span class="o">=</span>your_api_key_here
+</span></code></pre></div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Base URL</p>
+<p>All endpoints use the base URL <code>http://localhost:8001</code>.</p>
+</div>
+<h2 id="endpoint-categories">Endpoint Categories<a class="headerlink" href="#endpoint-categories" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Endpoints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><abbr title="Domain Name System - translates domain names to IP addresses">DNS</abbr></strong></td>
+<td>4</td>
+<td>Forward/reverse <abbr title="Domain Name System - translates domain names to IP addresses">DNS</abbr>, MX, TXT records</td>
+</tr>
+<tr>
+<td><strong>Domain</strong></td>
+<td>3</td>
+<td><abbr title="Protocol for querying domain registration and IP address ownership data">WHOIS</abbr>, reverse <abbr title="Protocol for querying domain registration and IP address ownership data">WHOIS</abbr>, comprehensive intel</td>
+</tr>
+<tr>
+<td><strong>IP</strong></td>
+<td>7</td>
+<td><abbr title="Protocol for querying domain registration and IP address ownership data">WHOIS</abbr>, <abbr title="Border Gateway Protocol - routing protocol for exchanging routing information between networks">BGP</abbr>, abuse, routes, reverse lookup</td>
+</tr>
+<tr>
+<td><strong>Scanning</strong></td>
+<td>5</td>
+<td>Protocol scans, ports, <abbr title="Active TLS server fingerprinting tool that produces a hash of a server's TLS configuration">JARM</abbr>, favicons</td>
+</tr>
+<tr>
+<td><strong>Certificate Transparency</strong></td>
+<td>2</td>
+<td><abbr title="Certificate Transparency - framework for monitoring and auditing TLS/SSL certificates">CT</abbr> log search, subdomain enumeration</td>
+</tr>
+<tr>
+<td><strong>Multi-Source</strong></td>
+<td>1</td>
+<td>Cross-source correlation</td>
+</tr>
+<tr>
+<td><strong>Reference</strong></td>
+<td>1</td>
+<td><abbr title="Common Vulnerabilities and Exposures - standardized identifier for security vulnerabilities">CVE</abbr> lookups</td>
+</tr>
+<tr>
+<td><strong>Suggestions</strong></td>
+<td>2</td>
+<td>Autocomplete for domains and scan values</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dns-endpoints"><abbr title="Domain Name System - translates domain names to IP addresses">DNS</abbr> Endpoints<a class="headerlink" href="#dns-endpoints" title="Permanent link">&para;</a></h2>
+<h3 id="get-v1driftnetdnsforward">GET /v1/driftnet/dns/forward<a class="headerlink" href="#get-v1driftnetdnsforward" title="Permanent link">&para;</a></h3>
+<p>Forward <abbr title="Domain Name System - translates domain names to IP addresses">DNS</abbr> lookups (A/AAAA records) with historical data support.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Finding IP addresses for hostnames, tracking <abbr title="Domain Name System - translates domain names to IP addresses">DNS</abbr> history over time, and correlating hostnames to IPs.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>string</td>
+<td>Hostname to lookup</td>
+</tr>
+<tr>
+<td><code>ip</code></td>
+<td>string</td>
+<td>IP address or CIDR to search</td>
+</tr>
+<tr>
+<td><code>nameserver</code></td>
+<td>string</td>
+<td>Filter by nameserver</td>
+</tr>
+<tr>
+<td><code>summarize</code></td>
+<td>string</td>
+<td>Field to summarize (e.g., 'ip', 'host')</td>
+</tr>
+<tr>
+<td><code>from</code></td>
+<td>string</td>
+<td>Start date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td><code>to</code></td>
+<td>string</td>
+<td>End date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>integer</td>
+<td>Result page (0-indexed)</td>
+</tr>
+</tbody>
+</table>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">curl</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Find all IPs that have hosted google.com</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/dns/forward?host=google.com&quot;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Find all domains resolving to a specific IP</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/dns/forward?ip=8.8.8.8&quot;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Summarize unique IPs for a domain</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/dns/forward?host=example.com&amp;summarize=ip&quot;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">&quot;page&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">&quot;pages&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">&quot;result_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">13330</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;results&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span><span class="p">{</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-02-02&quot;</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">        </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">          </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;host&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mail.google.com&quot;</span><span class="p">},</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">          </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ip&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;209.85.128.238&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dns-a&quot;</span><span class="p">},</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">          </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;host&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ns4.google.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dns-ns&quot;</span><span class="p">}</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">        </span><span class="p">]</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Response Fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>page</code></td>
+<td>integer</td>
+<td>Current page number (0-indexed)</td>
+</tr>
+<tr>
+<td><code>pages</code></td>
+<td>integer</td>
+<td>Total number of pages</td>
+</tr>
+<tr>
+<td><code>result_count</code></td>
+<td>integer</td>
+<td>Total result count</td>
+</tr>
+<tr>
+<td><code>results[].date</code></td>
+<td>string</td>
+<td>Date of the <abbr title="Domain Name System - translates domain names to IP addresses">DNS</abbr> record observation</td>
+</tr>
+<tr>
+<td><code>results[].items</code></td>
+<td>array</td>
+<td><abbr title="Domain Name System - translates domain names to IP addresses">DNS</abbr> record items with type, value, and context</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="get-v1driftnetdnsreverse">GET /v1/driftnet/dns/reverse<a class="headerlink" href="#get-v1driftnetdnsreverse" title="Permanent link">&para;</a></h3>
+<p>Reverse <abbr title="Domain Name System - translates domain names to IP addresses">DNS</abbr> (PTR) lookups for finding hostnames associated with IP addresses.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Identifying infrastructure ownership, verifying PTR records, and discovering related infrastructure.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip</code></td>
+<td>string</td>
+<td>IP address to lookup PTR</td>
+</tr>
+<tr>
+<td><code>host</code></td>
+<td>string</td>
+<td>PTR hostname to search</td>
+</tr>
+<tr>
+<td><code>from</code></td>
+<td>string</td>
+<td>Start date</td>
+</tr>
+<tr>
+<td><code>to</code></td>
+<td>string</td>
+<td>End date</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>integer</td>
+<td>Result page</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/dns/reverse?ip=8.8.8.8&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1driftnetdnsmx">GET /v1/driftnet/dns/mx<a class="headerlink" href="#get-v1driftnetdnsmx" title="Permanent link">&para;</a></h3>
+<p>MX record lookups for finding mail servers associated with domains.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Email infrastructure mapping, verifying MX configuration, and identifying email service providers.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>string</td>
+<td>Domain to lookup MX records</td>
+</tr>
+<tr>
+<td><code>nameserver</code></td>
+<td>string</td>
+<td>Filter by nameserver</td>
+</tr>
+<tr>
+<td><code>from</code></td>
+<td>string</td>
+<td>Start date</td>
+</tr>
+<tr>
+<td><code>to</code></td>
+<td>string</td>
+<td>End date</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>integer</td>
+<td>Result page</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/dns/mx?host=google.com&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1driftnetdnstxt">GET /v1/driftnet/dns/txt<a class="headerlink" href="#get-v1driftnetdnstxt" title="Permanent link">&para;</a></h3>
+<p>TXT record lookups (SPF, DKIM, DMARC, and other verification records).</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Analyzing email security configuration, checking SPF/DKIM/DMARC posture, and finding domain verification tokens.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>string</td>
+<td>Domain to lookup TXT records</td>
+</tr>
+<tr>
+<td><code>txt</code></td>
+<td>string</td>
+<td>TXT content to search (e.g., 'v=spf1')</td>
+</tr>
+<tr>
+<td><code>prefix</code></td>
+<td>boolean</td>
+<td>Treat txt as prefix match</td>
+</tr>
+<tr>
+<td><code>from</code></td>
+<td>string</td>
+<td>Start date</td>
+</tr>
+<tr>
+<td><code>to</code></td>
+<td>string</td>
+<td>End date</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>integer</td>
+<td>Result page</td>
+</tr>
+</tbody>
+</table>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">By Domain</label><label for="__tabbed_2_2">By TXT Content</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/dns/txt?host=google.com&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Find all domains with specific SPF configuration</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/dns/txt?txt=v=spf1&amp;prefix=true&quot;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="domain-endpoints">Domain Endpoints<a class="headerlink" href="#domain-endpoints" title="Permanent link">&para;</a></h2>
+<h3 id="get-v1driftnetdomainwhois">GET /v1/driftnet/domain/whois<a class="headerlink" href="#get-v1driftnetdomainwhois" title="Permanent link">&para;</a></h3>
+<p>Domain <abbr title="Protocol for querying domain registration and IP address ownership data">WHOIS</abbr> lookup returning structured registration data.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Researching domain ownership, registration dates, registrar information, and brand protection.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>domain</code></td>
+<td>string</td>
+<td>Domain name to lookup (required)</td>
+</tr>
+<tr>
+<td><code>extract_apex</code></td>
+<td>boolean</td>
+<td>Extract apex domain from subdomain</td>
+</tr>
+</tbody>
+</table>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Basic Lookup</label><label for="__tabbed_3_2">Apex Extraction</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/domain/whois?domain=google.com&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Extract apex domain from subdomain</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/domain/whois?domain=mail.google.com&amp;extract_apex=true&quot;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;google.com&quot;</span><span class="p">,</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">      </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1997-09-15T04:00:00Z&quot;</span><span class="p">,</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">      </span><span class="nt">&quot;expires&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2028-09-14T04:00:00Z&quot;</span><span class="p">,</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">      </span><span class="nt">&quot;registrar_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MarkMonitor Inc.&quot;</span><span class="p">,</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">      </span><span class="nt">&quot;nameservers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ns1.google.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ns2.google.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ns3.google.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ns4.google.com&quot;</span><span class="p">],</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;clientDeleteProhibited,clientTransferProhibited,clientUpdateProhibited&quot;</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Response Fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>domain.name</code></td>
+<td>string</td>
+<td>Domain name</td>
+</tr>
+<tr>
+<td><code>domain.created</code></td>
+<td>string</td>
+<td>Registration date (ISO 8601)</td>
+</tr>
+<tr>
+<td><code>domain.expires</code></td>
+<td>string</td>
+<td>Expiration date (ISO 8601)</td>
+</tr>
+<tr>
+<td><code>domain.registrar_name</code></td>
+<td>string</td>
+<td>Registrar name</td>
+</tr>
+<tr>
+<td><code>domain.nameservers</code></td>
+<td>array</td>
+<td>Authoritative nameservers</td>
+</tr>
+<tr>
+<td><code>domain.status</code></td>
+<td>string</td>
+<td>Domain status codes</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="get-v1driftnetdomainreverse">GET /v1/driftnet/domain/reverse<a class="headerlink" href="#get-v1driftnetdomainreverse" title="Permanent link">&para;</a></h3>
+<p>Reverse <abbr title="Protocol for querying domain registration and IP address ownership data">WHOIS</abbr> search -- find domains by registrant information.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Mapping threat actor infrastructure, finding all domains owned by an entity, and brand protection.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>Registrant name</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>string</td>
+<td>Registrant email</td>
+</tr>
+<tr>
+<td><code>phone</code></td>
+<td>string</td>
+<td>Registrant phone</td>
+</tr>
+<tr>
+<td><code>nameserver</code></td>
+<td>string</td>
+<td>Nameserver</td>
+</tr>
+<tr>
+<td><code>phrase</code></td>
+<td>string</td>
+<td>Search phrase in any field</td>
+</tr>
+<tr>
+<td><code>prefix</code></td>
+<td>boolean</td>
+<td>Treat as prefix match</td>
+</tr>
+<tr>
+<td><code>created_from</code></td>
+<td>string</td>
+<td>Domain creation start date</td>
+</tr>
+<tr>
+<td><code>created_to</code></td>
+<td>string</td>
+<td>Domain creation end date</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>integer</td>
+<td>Result page</td>
+</tr>
+</tbody>
+</table>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">By Name</label><label for="__tabbed_4_2">By Email</label><label for="__tabbed_4_3">By Nameserver</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/domain/reverse?name=Google&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/domain/reverse?email=admin@example.com&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/domain/reverse?nameserver=ns1.google.com&quot;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<hr />
+<h3 id="get-v1driftnetdomainintel">GET /v1/driftnet/domain/intel<a class="headerlink" href="#get-v1driftnetdomainintel" title="Permanent link">&para;</a></h3>
+<p>Comprehensive domain intelligence combining <abbr title="Protocol for querying domain registration and IP address ownership data">WHOIS</abbr>, <abbr title="Domain Name System - translates domain names to IP addresses">DNS</abbr>, MX, TXT, and certificate data in a single call.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Full domain investigation, rapid domain triage, and comprehensive domain profiling.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>domain</code></td>
+<td>string</td>
+<td>Domain to analyze (required)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/domain/intel?domain=cloudflare.com&quot;</span>
+</span></code></pre></div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cloudflare.com&quot;</span><span class="p">,</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="nt">&quot;whois&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="nt">&quot;dns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="nt">&quot;mx&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="nt">&quot;txt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">    </span><span class="nt">&quot;certs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="ip-intelligence-endpoints">IP Intelligence Endpoints<a class="headerlink" href="#ip-intelligence-endpoints" title="Permanent link">&para;</a></h2>
+<h3 id="get-v1driftnetipwhois">GET /v1/driftnet/ip/whois<a class="headerlink" href="#get-v1driftnetipwhois" title="Permanent link">&para;</a></h3>
+<p>IP <abbr title="Protocol for querying domain registration and IP address ownership data">WHOIS</abbr> lookup for finding ownership, network blocks, and allocation information.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>IP investigation, network allocation research, and infrastructure mapping.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip</code></td>
+<td>string</td>
+<td>IP address to lookup (required)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/ip/whois?ip=8.8.8.8&quot;</span>
+</span></code></pre></div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="nt">&quot;net&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">      </span><span class="nt">&quot;cidr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.8.8.0/24&quot;</span><span class="p">,</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">      </span><span class="nt">&quot;net_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GOGL&quot;</span><span class="p">,</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">      </span><span class="nt">&quot;registry&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ARIN&quot;</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">    </span><span class="nt">&quot;org&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Google LLC&quot;</span><span class="p">,</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">      </span><span class="nt">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;1600 Amphitheatre Parkway&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Mountain View&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CA&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;94043&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;US&quot;</span><span class="p">]</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Response Fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>net.cidr</code></td>
+<td>string</td>
+<td>Network CIDR block</td>
+</tr>
+<tr>
+<td><code>net.net_name</code></td>
+<td>string</td>
+<td>Network name</td>
+</tr>
+<tr>
+<td><code>net.registry</code></td>
+<td>string</td>
+<td>Regional Internet Registry (ARIN, RIPE, APNIC, etc.)</td>
+</tr>
+<tr>
+<td><code>org.name</code></td>
+<td>string</td>
+<td>Organization name</td>
+</tr>
+<tr>
+<td><code>org.address</code></td>
+<td>array</td>
+<td>Organization address components</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="get-v1driftnetipsummary">GET /v1/driftnet/ip/summary<a class="headerlink" href="#get-v1driftnetipsummary" title="Permanent link">&para;</a></h3>
+<p>Quick IP summary with ownership information.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Fast lookup of IP ownership without full <abbr title="Protocol for querying domain registration and IP address ownership data">WHOIS</abbr> details.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip</code></td>
+<td>string</td>
+<td>IP address (required)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/ip/summary?ip=8.8.8.8&quot;</span>
+</span></code></pre></div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="p">{</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;apex_domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dns.google&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;cidr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.8.8.8/32&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rdns&quot;</span><span class="p">},</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">    </span><span class="nt">&quot;entity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;cidr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.8.8.0/24&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bgpasn&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Google LLC&quot;</span><span class="p">}</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1driftnetipabuse">GET /v1/driftnet/ip/abuse<a class="headerlink" href="#get-v1driftnetipabuse" title="Permanent link">&para;</a></h3>
+<p>Get abuse contact information for an IP address.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Finding contacts for abuse reports, coordinating takedowns, and reporting malicious activity.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip</code></td>
+<td>string</td>
+<td>IP address (required)</td>
+</tr>
+<tr>
+<td><code>restrict</code></td>
+<td>string</td>
+<td>Restrict to 'whois' or 'bgp'</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/ip/abuse?ip=8.8.8.8&quot;</span>
+</span></code></pre></div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">{</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="nt">&quot;cidr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.8.8.0/24&quot;</span><span class="p">,</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">    </span><span class="nt">&quot;emails&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;network-abuse@google.com&quot;</span><span class="p">],</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">    </span><span class="nt">&quot;contexts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;bgpasn&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;net&quot;</span><span class="p">]</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1driftnetipbgp">GET /v1/driftnet/ip/bgp<a class="headerlink" href="#get-v1driftnetipbgp" title="Permanent link">&para;</a></h3>
+<p><abbr title="Border Gateway Protocol - routing protocol for exchanging routing information between networks">BGP</abbr>/Prefix <abbr title="Protocol for querying domain registration and IP address ownership data">WHOIS</abbr> for AS information, <abbr title="Border Gateway Protocol - routing protocol for exchanging routing information between networks">BGP</abbr> routing data, and CIDR allocations.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>AS information lookups, <abbr title="Border Gateway Protocol - routing protocol for exchanging routing information between networks">BGP</abbr> routing analysis, and network allocation research.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip</code></td>
+<td>string</td>
+<td>IP address</td>
+</tr>
+<tr>
+<td><code>asn</code></td>
+<td>string</td>
+<td>AS number (e.g., 'AS15169')</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/ip/bgp?ip=8.8.8.8&quot;</span>
+</span></code></pre></div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">{</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">    </span><span class="nt">&quot;as_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GOOGLE&quot;</span><span class="p">,</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">    </span><span class="nt">&quot;as_number&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AS15169&quot;</span><span class="p">,</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">    </span><span class="nt">&quot;cidr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.8.8.0/24&quot;</span><span class="p">,</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Google LLC&quot;</span><span class="p">,</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">    </span><span class="nt">&quot;registry&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ARIN&quot;</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Response Fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>as_name</code></td>
+<td>string</td>
+<td>Autonomous System name</td>
+</tr>
+<tr>
+<td><code>as_number</code></td>
+<td>string</td>
+<td>AS number</td>
+</tr>
+<tr>
+<td><code>cidr</code></td>
+<td>string</td>
+<td>Network CIDR block</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>Organization name</td>
+</tr>
+<tr>
+<td><code>registry</code></td>
+<td>string</td>
+<td>Regional Internet Registry</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="get-v1driftnetiproutes">GET /v1/driftnet/ip/routes<a class="headerlink" href="#get-v1driftnetiproutes" title="Permanent link">&para;</a></h3>
+<p><abbr title="Border Gateway Protocol - routing protocol for exchanging routing information between networks">BGP</abbr> routing information for an IP or ASN.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip</code></td>
+<td>string</td>
+<td>IP address</td>
+</tr>
+<tr>
+<td><code>asn</code></td>
+<td>string</td>
+<td>AS number</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/ip/routes?ip=8.8.8.8&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1driftnetipreverse">GET /v1/driftnet/ip/reverse<a class="headerlink" href="#get-v1driftnetipreverse" title="Permanent link">&para;</a></h3>
+<p>Reverse IP <abbr title="Protocol for querying domain registration and IP address ownership data">WHOIS</abbr> search to find IP ranges owned by an organization.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Discovering all IP ranges owned by an organization, asset inventory, and infrastructure mapping.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>Organization name</td>
+</tr>
+<tr>
+<td><code>domain</code></td>
+<td>string</td>
+<td>Associated domain</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>string</td>
+<td>Contact email</td>
+</tr>
+<tr>
+<td><code>address</code></td>
+<td>string</td>
+<td>Physical address</td>
+</tr>
+<tr>
+<td><code>phone</code></td>
+<td>string</td>
+<td>Phone number</td>
+</tr>
+<tr>
+<td><code>outer_only</code></td>
+<td>boolean</td>
+<td>Only return outer ranges</td>
+</tr>
+<tr>
+<td><code>context</code></td>
+<td>string</td>
+<td>Filter by 'whois' or 'bgp'</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>integer</td>
+<td>Result page</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/ip/reverse?name=Google&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1driftnetipintel">GET /v1/driftnet/ip/intel<a class="headerlink" href="#get-v1driftnetipintel" title="Permanent link">&para;</a></h3>
+<p>Comprehensive IP intelligence combining <abbr title="Protocol for querying domain registration and IP address ownership data">WHOIS</abbr>, <abbr title="Border Gateway Protocol - routing protocol for exchanging routing information between networks">BGP</abbr>, abuse contacts, and port scan data in one call.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Complete IP investigation, rapid IP triage, and bulk IP analysis.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip</code></td>
+<td>string</td>
+<td>IP address to analyze (required)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/ip/intel?ip=8.8.8.8&quot;</span>
+</span></code></pre></div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="p">{</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.8.8.8&quot;</span><span class="p">,</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="w">    </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="w">    </span><span class="nt">&quot;whois&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="w">    </span><span class="nt">&quot;abuse&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="w">    </span><span class="nt">&quot;ports&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="w">    </span><span class="nt">&quot;bgp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="scanning-endpoints">Scanning Endpoints<a class="headerlink" href="#scanning-endpoints" title="Permanent link">&para;</a></h2>
+<h3 id="get-v1driftnetscanprotocols">GET /v1/driftnet/scan/protocols<a class="headerlink" href="#get-v1driftnetscanprotocols" title="Permanent link">&para;</a></h3>
+<p>Protocol scan data for finding hosts by server software, HTTP headers, page titles, and more.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Finding vulnerable services, tracking C2 infrastructure, and service discovery.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip</code></td>
+<td>string</td>
+<td>IP address or CIDR</td>
+</tr>
+<tr>
+<td><code>query</code></td>
+<td>string</td>
+<td>Free-text search</td>
+</tr>
+<tr>
+<td><code>field</code></td>
+<td>string</td>
+<td>Field search (e.g., 'server:nginx')</td>
+</tr>
+<tr>
+<td><code>expression</code></td>
+<td>string</td>
+<td>Complex query expression</td>
+</tr>
+<tr>
+<td><code>filter</code></td>
+<td>string</td>
+<td>Post-filter results</td>
+</tr>
+<tr>
+<td><code>most_recent</code></td>
+<td>boolean</td>
+<td>Dedupe to most recent</td>
+</tr>
+<tr>
+<td><code>summarize</code></td>
+<td>string</td>
+<td>Field to summarize</td>
+</tr>
+<tr>
+<td><code>summary_limit</code></td>
+<td>integer</td>
+<td>Max summary values</td>
+</tr>
+<tr>
+<td><code>from</code></td>
+<td>string</td>
+<td>Start date</td>
+</tr>
+<tr>
+<td><code>to</code></td>
+<td>string</td>
+<td>End date</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>integer</td>
+<td>Result page</td>
+</tr>
+</tbody>
+</table>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">By Software</label><label for="__tabbed_5_2">By Title</label><label for="__tabbed_5_3">By IP</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Find all IPs running nginx</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/scan/protocols?field=server:nginx&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Find Apache servers with specific title</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/scan/protocols?field=title:admin&amp;query=apache&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Get scan data for specific IP</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/scan/protocols?ip=8.8.8.8&quot;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<hr />
+<h3 id="get-v1driftnetscanports">GET /v1/driftnet/scan/ports<a class="headerlink" href="#get-v1driftnetscanports" title="Permanent link">&para;</a></h3>
+<p>Open ports summary with honeypot detection.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Quick view of open ports for an IP or CIDR range.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip</code></td>
+<td>string</td>
+<td>IP address or CIDR (required)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/scan/ports?ip=8.8.8.8&quot;</span>
+</span></code></pre></div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="p">{</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">    </span><span class="nt">&quot;other&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="w">    </span><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;443&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">31</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;53&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;853&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">}</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Response Fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>other</code></td>
+<td>integer</td>
+<td>Count of ports not in top values</td>
+</tr>
+<tr>
+<td><code>values</code></td>
+<td>object</td>
+<td>Port numbers mapped to observation counts</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="get-v1driftnetscandomains">GET /v1/driftnet/scan/domains<a class="headerlink" href="#get-v1driftnetscandomains" title="Permanent link">&para;</a></h3>
+<p>Domain/vhost scan data for finding virtual hosts and HTTP service data.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Finding virtual hosts, HTTP service data for domains, and infrastructure correlation.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>string</td>
+<td>Hostname to search</td>
+</tr>
+<tr>
+<td><code>ip</code></td>
+<td>string</td>
+<td>IP address</td>
+</tr>
+<tr>
+<td><code>query</code></td>
+<td>string</td>
+<td>Free-text search</td>
+</tr>
+<tr>
+<td><code>field</code></td>
+<td>string</td>
+<td>Field search (e.g., 'title:admin')</td>
+</tr>
+<tr>
+<td><code>summarize</code></td>
+<td>string</td>
+<td>Field to summarize</td>
+</tr>
+<tr>
+<td><code>from</code></td>
+<td>string</td>
+<td>Start date</td>
+</tr>
+<tr>
+<td><code>to</code></td>
+<td>string</td>
+<td>End date</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>integer</td>
+<td>Result page</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/scan/domains?host=github.com&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="get-v1driftnetscanjarm">GET /v1/driftnet/scan/jarm<a class="headerlink" href="#get-v1driftnetscanjarm" title="Permanent link">&para;</a></h3>
+<p><abbr title="Active TLS server fingerprinting tool that produces a hash of a server's TLS configuration">JARM</abbr> fingerprint lookups for tracking C2 infrastructure and identifying server implementations.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Tracking malware C2 servers, server fingerprinting, and infrastructure correlation. Same <abbr title="Active TLS server fingerprinting tool that produces a hash of a server's TLS configuration">JARM</abbr> hash indicates similar server configuration.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip</code></td>
+<td>string</td>
+<td>IP address</td>
+</tr>
+<tr>
+<td><code>hash</code></td>
+<td>string</td>
+<td><abbr title="Active TLS server fingerprinting tool that produces a hash of a server's TLS configuration">JARM</abbr> hash to search</td>
+</tr>
+<tr>
+<td><code>summarize</code></td>
+<td>string</td>
+<td>Field to summarize (e.g., 'ip')</td>
+</tr>
+<tr>
+<td><code>summary_limit</code></td>
+<td>integer</td>
+<td>Max summary values</td>
+</tr>
+<tr>
+<td><code>from</code></td>
+<td>string</td>
+<td>Start date</td>
+</tr>
+<tr>
+<td><code>to</code></td>
+<td>string</td>
+<td>End date</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>integer</td>
+<td>Result page</td>
+</tr>
+</tbody>
+</table>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">By IP</label><label for="__tabbed_6_2">By Hash</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/scan/jarm?ip=8.8.8.8&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Find all IPs with same JARM hash</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/scan/jarm?hash=29d29d00029d29d00042d43d00041d2aa5ce6a70de7ba95aef77a77b00a0af&quot;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<hr />
+<h3 id="get-v1driftnetscanfavicons">GET /v1/driftnet/scan/favicons<a class="headerlink" href="#get-v1driftnetscanfavicons" title="Permanent link">&para;</a></h3>
+<p>Favicon hash lookups for finding related infrastructure by favicon hash.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Tracking phishing infrastructure, finding impersonation sites, and infrastructure correlation. Same favicon likely indicates same or related infrastructure.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sha1</code></td>
+<td>string</td>
+<td>SHA1 hash</td>
+</tr>
+<tr>
+<td><code>sha256</code></td>
+<td>string</td>
+<td>SHA256 hash</td>
+</tr>
+<tr>
+<td><code>md5</code></td>
+<td>string</td>
+<td>MD5 hash</td>
+</tr>
+<tr>
+<td><code>murmur3</code></td>
+<td>integer</td>
+<td>MurmurHash3 (Shodan-compatible format)</td>
+</tr>
+<tr>
+<td><code>summarize</code></td>
+<td>string</td>
+<td>Field to summarize</td>
+</tr>
+<tr>
+<td><code>from</code></td>
+<td>string</td>
+<td>Start date</td>
+</tr>
+<tr>
+<td><code>to</code></td>
+<td>string</td>
+<td>End date</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>integer</td>
+<td>Result page</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Find IPs with same favicon (MurmurHash3 format for Shodan compatibility)</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/scan/favicons?murmur3=-1123257478&quot;</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Supported Hash Formats</p>
+<p>Multiple hash formats are supported: SHA1, SHA256, MD5, and MurmurHash3. The MurmurHash3 format is compatible with Shodan's <code>http.favicon.hash</code> filter.</p>
+</div>
+<hr />
+<h2 id="certificate-transparency-endpoints">Certificate Transparency Endpoints<a class="headerlink" href="#certificate-transparency-endpoints" title="Permanent link">&para;</a></h2>
+<h3 id="get-v1driftnetctlog">GET /v1/driftnet/ct/log<a class="headerlink" href="#get-v1driftnetctlog" title="Permanent link">&para;</a></h3>
+<p>Certificate Transparency log searches for finding certificates issued for domains.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Certificate reconnaissance, subdomain enumeration via <abbr title="Certificate Transparency - framework for monitoring and auditing TLS/SSL certificates">CT</abbr> logs, and certificate inventory/compliance.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>field</code></td>
+<td>string</td>
+<td>Field search (e.g., 'host:example.com') (required)</td>
+</tr>
+<tr>
+<td><code>prefix</code></td>
+<td>boolean</td>
+<td>Treat as prefix match (for wildcards)</td>
+</tr>
+<tr>
+<td><code>valid_filter</code></td>
+<td>string</td>
+<td>'valid-from' or 'valid-to'</td>
+</tr>
+<tr>
+<td><code>summarize</code></td>
+<td>string</td>
+<td>Field to summarize (e.g., 'host')</td>
+</tr>
+<tr>
+<td><code>summary_limit</code></td>
+<td>integer</td>
+<td>Max summary values</td>
+</tr>
+<tr>
+<td><code>from</code></td>
+<td>string</td>
+<td>Start date</td>
+</tr>
+<tr>
+<td><code>to</code></td>
+<td>string</td>
+<td>End date</td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td>integer</td>
+<td>Result page</td>
+</tr>
+</tbody>
+</table>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:3"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><input id="__tabbed_7_3" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Find Certificates</label><label for="__tabbed_7_2">Enumerate Subdomains</label><label for="__tabbed_7_3">By Organization</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># Find all certificates for a domain</span>
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/ct/log?field=host:github.com&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># Enumerate subdomains using CT logs</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/ct/log?field=host:example.com&amp;prefix=true&amp;summarize=host&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1"># Find certificates by organization</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/ct/log?field=subject:Google&quot;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<hr />
+<h3 id="get-v1driftnetsubdomains">GET /v1/driftnet/subdomains<a class="headerlink" href="#get-v1driftnetsubdomains" title="Permanent link">&para;</a></h3>
+<p>Enumerate subdomains using <abbr title="Certificate Transparency - framework for monitoring and auditing TLS/SSL certificates">CT</abbr> logs and <abbr title="Domain Name System - translates domain names to IP addresses">DNS</abbr> combined for comprehensive subdomain discovery.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Attack surface discovery, asset inventory, scope enumeration for penetration testing and bug bounties.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>domain</code></td>
+<td>string</td>
+<td>Apex domain to enumerate (required)</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>integer</td>
+<td>Max subdomains (default: 1000)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/subdomains?domain=github.com&amp;limit=100&quot;</span>
+</span></code></pre></div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="p">{</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="w">    </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github.com&quot;</span><span class="p">,</span>
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="w">    </span><span class="nt">&quot;ct_subdomains&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="w">    </span><span class="nt">&quot;dns_subdomains&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Response Fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>domain</code></td>
+<td>string</td>
+<td>The queried apex domain</td>
+</tr>
+<tr>
+<td><code>ct_subdomains</code></td>
+<td>object</td>
+<td>Subdomains discovered from Certificate Transparency logs</td>
+</tr>
+<tr>
+<td><code>dns_subdomains</code></td>
+<td>object</td>
+<td>Subdomains discovered from <abbr title="Domain Name System - translates domain names to IP addresses">DNS</abbr> data</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="multi-source-intelligence">Multi-Source Intelligence<a class="headerlink" href="#multi-source-intelligence" title="Permanent link">&para;</a></h2>
+<h3 id="get-v1driftnetmultisummary">GET /v1/driftnet/multi/summary<a class="headerlink" href="#get-v1driftnetmultisummary" title="Permanent link">&para;</a></h3>
+<p>Multi-facet summary across all data types for rapid target assessment.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Quick overview of all data related to a target, rapid triage, and initial reconnaissance.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>field</code></td>
+<td>string</td>
+<td>Field search (e.g., 'host:example.com')</td>
+</tr>
+<tr>
+<td><code>expression</code></td>
+<td>string</td>
+<td>Query expression</td>
+</tr>
+<tr>
+<td><code>summary_limit</code></td>
+<td>integer</td>
+<td>Max summary values</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td>integer</td>
+<td>Timeout in seconds (default: 30)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/multi/summary?field=ip:8.8.8.8&quot;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="reference-data">Reference Data<a class="headerlink" href="#reference-data" title="Permanent link">&para;</a></h2>
+<h3 id="get-v1driftnetcve">GET /v1/driftnet/cve<a class="headerlink" href="#get-v1driftnetcve" title="Permanent link">&para;</a></h3>
+<p><abbr title="Common Vulnerabilities and Exposures - standardized identifier for security vulnerabilities">CVE</abbr> information lookup with <abbr title="Common Vulnerability Scoring System - numerical score rating the severity of a CVE">CVSS</abbr> scoring, <abbr title="Exploit Prediction Scoring System - model estimating the probability a CVE will be exploited">EPSS</abbr> probability, and <abbr title="Known Exploited Vulnerabilities - CISA catalog of vulnerabilities actively exploited in the wild">KEV</abbr> status.</p>
+<div class="admonition tip">
+<p class="admonition-title">Best For</p>
+<p>Vulnerability research, patch prioritization, and impact assessment.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>string</td>
+<td><abbr title="Common Vulnerabilities and Exposures - standardized identifier for security vulnerabilities">CVE</abbr> ID (e.g., '<abbr title="Common Vulnerabilities and Exposures - standardized identifier for security vulnerabilities">CVE</abbr>-2021-44228') (required)</td>
+</tr>
+</tbody>
+</table>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Log4Shell</label><label for="__tabbed_8_2">Recent <abbr title="Common Vulnerabilities and Exposures - standardized identifier for security vulnerabilities">CVE</abbr></label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/cve?id=CVE-2021-44228&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/cve?id=CVE-2024-1234&quot;</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="p">{</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CVE-2021-44228&quot;</span><span class="p">,</span>
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="w">    </span><span class="nt">&quot;cvss_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.0&quot;</span><span class="p">,</span>
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a><span class="w">    </span><span class="nt">&quot;cvss_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.1&quot;</span><span class="p">,</span>
+</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a><span class="w">    </span><span class="nt">&quot;descriptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a><span class="w">      </span><span class="nt">&quot;en&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Apache Log4j2 2.0-beta9 through 2.15.0 JNDI features...&quot;</span>
+</span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-44-10"><a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a><span class="w">    </span><span class="nt">&quot;epss_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.94358&quot;</span><span class="p">,</span>
+</span><span id="__span-44-11"><a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a><span class="w">    </span><span class="nt">&quot;epss_percentile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.9996&quot;</span><span class="p">,</span>
+</span><span id="__span-44-12"><a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a><span class="w">    </span><span class="nt">&quot;kev&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-44-13"><a id="__codelineno-44-13" name="__codelineno-44-13" href="#__codelineno-44-13"></a><span class="w">      </span><span class="nt">&quot;date_added&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-10&quot;</span><span class="p">,</span>
+</span><span id="__span-44-14"><a id="__codelineno-44-14" name="__codelineno-44-14" href="#__codelineno-44-14"></a><span class="w">      </span><span class="nt">&quot;due_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-24&quot;</span><span class="p">,</span>
+</span><span id="__span-44-15"><a id="__codelineno-44-15" name="__codelineno-44-15" href="#__codelineno-44-15"></a><span class="w">      </span><span class="nt">&quot;known_ransomware_campaign_use&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Known&quot;</span>
+</span><span id="__span-44-16"><a id="__codelineno-44-16" name="__codelineno-44-16" href="#__codelineno-44-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-44-17"><a id="__codelineno-44-17" name="__codelineno-44-17" href="#__codelineno-44-17"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-44-18"><a id="__codelineno-44-18" name="__codelineno-44-18" href="#__codelineno-44-18"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Response Fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>string</td>
+<td><abbr title="Common Vulnerabilities and Exposures - standardized identifier for security vulnerabilities">CVE</abbr> identifier</td>
+</tr>
+<tr>
+<td><code>cvss_score</code></td>
+<td>string</td>
+<td><abbr title="Common Vulnerability Scoring System - numerical score rating the severity of a CVE">CVSS</abbr> base score (0.0-10.0)</td>
+</tr>
+<tr>
+<td><code>cvss_version</code></td>
+<td>string</td>
+<td><abbr title="Common Vulnerability Scoring System - numerical score rating the severity of a CVE">CVSS</abbr> version used for scoring</td>
+</tr>
+<tr>
+<td><code>descriptions</code></td>
+<td>object</td>
+<td><abbr title="Common Vulnerabilities and Exposures - standardized identifier for security vulnerabilities">CVE</abbr> descriptions by language</td>
+</tr>
+<tr>
+<td><code>epss_score</code></td>
+<td>string</td>
+<td><abbr title="Exploit Prediction Scoring System - model estimating the probability a CVE will be exploited">EPSS</abbr> probability of exploitation (0-1)</td>
+</tr>
+<tr>
+<td><code>epss_percentile</code></td>
+<td>string</td>
+<td><abbr title="Exploit Prediction Scoring System - model estimating the probability a CVE will be exploited">EPSS</abbr> percentile ranking</td>
+</tr>
+<tr>
+<td><code>kev.date_added</code></td>
+<td>string</td>
+<td>Date added to CISA <abbr title="Known Exploited Vulnerabilities - CISA catalog of vulnerabilities actively exploited in the wild">KEV</abbr> catalog</td>
+</tr>
+<tr>
+<td><code>kev.due_date</code></td>
+<td>string</td>
+<td>Required remediation date</td>
+</tr>
+<tr>
+<td><code>kev.known_ransomware_campaign_use</code></td>
+<td>string</td>
+<td>Whether used in ransomware campaigns</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Scoring Systems</p>
+<ul>
+<li><strong><abbr title="Common Vulnerability Scoring System - numerical score rating the severity of a CVE">CVSS</abbr></strong>: Common Vulnerability Scoring System -- measures severity (0-10)</li>
+<li><strong><abbr title="Exploit Prediction Scoring System - model estimating the probability a CVE will be exploited">EPSS</abbr></strong>: Exploit Prediction Scoring System -- predicts likelihood of exploitation (0-1)</li>
+<li><strong><abbr title="Known Exploited Vulnerabilities - CISA catalog of vulnerabilities actively exploited in the wild">KEV</abbr></strong>: CISA Known Exploited Vulnerabilities -- indicates active exploitation in the wild</li>
+</ul>
+</div>
+<hr />
+<h2 id="suggestion-endpoints">Suggestion Endpoints<a class="headerlink" href="#suggestion-endpoints" title="Permanent link">&para;</a></h2>
+<h3 id="get-v1driftnetsuggestdomains">GET /v1/driftnet/suggest/domains<a class="headerlink" href="#get-v1driftnetsuggestdomains" title="Permanent link">&para;</a></h3>
+<p>Domain autocomplete suggestions for building search interfaces.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>prefix</code></td>
+<td>string</td>
+<td>Search prefix (required)</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>integer</td>
+<td>Max suggestions (default: 20)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/suggest/domains?prefix=goo&amp;limit=5&quot;</span>
+</span></code></pre></div>
+<p><strong>Response:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="p">{</span>
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="w">    </span><span class="nt">&quot;result_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="w">    </span><span class="nt">&quot;results&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-46-6"><a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a><span class="w">      </span><span class="p">{</span><span class="nt">&quot;domain_display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;google.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;subdomain_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14191</span><span class="p">},</span>
+</span><span id="__span-46-7"><a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a><span class="w">      </span><span class="p">{</span><span class="nt">&quot;domain_display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;good50.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;subdomain_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">27955</span><span class="p">}</span>
+</span><span id="__span-46-8"><a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-46-9"><a id="__codelineno-46-9" name="__codelineno-46-9" href="#__codelineno-46-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-46-10"><a id="__codelineno-46-10" name="__codelineno-46-10" href="#__codelineno-46-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Response Fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>result_count</code></td>
+<td>integer</td>
+<td>Number of suggestions returned</td>
+</tr>
+<tr>
+<td><code>results[].domain_display</code></td>
+<td>string</td>
+<td>Domain name</td>
+</tr>
+<tr>
+<td><code>results[].subdomain_count</code></td>
+<td>integer</td>
+<td>Number of known subdomains</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="get-v1driftnetsuggestscan">GET /v1/driftnet/suggest/scan<a class="headerlink" href="#get-v1driftnetsuggestscan" title="Permanent link">&para;</a></h3>
+<p>Scan value autocomplete suggestions for building scan search interfaces.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>prefix</code></td>
+<td>string</td>
+<td>Search prefix (required)</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>string</td>
+<td>Value type (e.g., 'port-tcp')</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>integer</td>
+<td>Max suggestions (default: 10)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8001/v1/driftnet/suggest/scan?prefix=nginx&amp;limit=5&quot;</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="February 11, 2026 19:09:22 UTC"><span class="timeago" datetime="2026-02-11T19:09:22+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="February 11, 2026 19:09:22 UTC">2026-02-11</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="February 11, 2026 19:09:22 UTC"><span class="timeago" datetime="2026-02-11T19:09:22+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="February 11, 2026 19:09:22 UTC">2026-02-11</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../intelligence/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Intelligence">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Intelligence
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../network/" class="md-footer__link md-footer__link--next" aria-label="Next: Network Analysis">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Network Analysis
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.instant", "navigation.instant.prefetch", "navigation.path", "navigation.footer", "navigation.indexes", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.select", "content.code.annotate", "content.tabs.link", "content.tooltips", "toc.follow", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"AI": "ai", "Automation": "automation", "Crypto": "crypto", "Dark Web": "darkweb", "Data": "data", "Network": "network", "OSINT": "osint", "Search": "search", "Security": "security"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+    
+  </body>
+</html>
